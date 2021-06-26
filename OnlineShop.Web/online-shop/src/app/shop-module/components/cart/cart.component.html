@@ -1,0 +1,16 @@
+<app-toolbar></app-toolbar>
+<div>
+  <ul>
+    <ng-container *ngFor="let item of items">
+      <li>
+        <p>{{item.name}}</p>
+        <p>{{item.description}}</p>
+        <p>{{item.price}}</p>
+      </li>
+    </ng-container>
+  </ul>
+
+  <button class="generic-button" (click)="buyItems()">
+    Buy
+  </button>
+</div>

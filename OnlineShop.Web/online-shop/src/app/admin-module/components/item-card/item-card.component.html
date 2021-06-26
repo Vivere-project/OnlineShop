@@ -1,0 +1,28 @@
+<div class="item-card">
+
+  <img [src]="imageToShow" alt="item image"
+       *ngIf="!isImageLoading; else noImageFound">
+  <ng-template #noImageFound>
+    <img src="../../../assets/loading.gif" alt="item image">
+  </ng-template>
+
+  <i *ngIf="isCreateNewItemCard" class="fas fa-plus"></i>
+
+  <div class="container">
+    <h4>{{item.name}}</h4>
+    <p>{{item.description}} </p>
+
+    <div  class="cart-icon delete" (click)="deleteItem()">
+      <div class="cart-icon-text">
+        <i class="fas fa-trash"></i>
+      </div>
+    </div>
+
+    <a class="cart-icon edit" [routerLink]="['/edit-item', item.id]">
+      <div class="cart-icon-text edit-icon">
+        <i class="fas fa-edit"></i>
+      </div>
+    </a>
+  </div>
+
+</div>

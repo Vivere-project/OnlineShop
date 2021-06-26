@@ -1,0 +1,42 @@
+<div class="topnav">
+  <button class="back" [routerLink]="['/admin']">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+  You are the admin</div>
+
+<div class="container">
+  <div class="input-form" [formGroup]="itemForm">
+    <label for="name">Name: </label>
+    <input id="name" type="text" formControlName="name">
+
+    <label for="description">Description: </label>
+    <input id="description" type="text" formControlName="description">
+
+    <label for="price">Price: </label>
+    <input id="price" type="text" formControlName="price">
+
+    <label for="minimalBuyQuantity">Minimal buy quantity: </label>
+    <input id="minimalBuyQuantity" type="text" formControlName="minimalBuyQuantity">
+
+    <label for="quantityInStock">Quantity left in stock: </label>
+    <input id="quantityInStock" type="text" formControlName="quantityInStock">
+
+    <input type="submit" (click)="submit()" value="Submit">
+  </div>
+
+  <div class="edit-image-container">
+    <img [src]="imageToShow" class="edit-image" alt="item image"
+         *ngIf="!isImageLoading; else noImageFound">
+    <ng-template #noImageFound>
+      <img src="../../../assets/loading.gif" alt="item image">
+    </ng-template>
+
+    <div class="form-group">
+      <label for="file" class="edit-image-button" >Edit image</label>
+      <input type="file"
+             accept=".jpg, .jpeg, .png, .gif, .bmp"
+             id="file"
+             (change)="handleFileInput($event)">
+    </div>
+  </div>
+</div>
