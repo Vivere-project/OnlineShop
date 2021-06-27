@@ -19,7 +19,7 @@ img {
 }
 
 button.add-to-cart {
-  background: #04AA6D;
+  background: #1C841C;
   border: none;
   font-size:20px;
   color: white;
@@ -31,13 +31,13 @@ button.add-to-cart:hover {
 }
 
 p.price {
-  color: #04AA6D;
+  color: #1C841C;
 }
 
 hr {
   margin-left: 0;
   width: 100px;
-  border: 1px solid #04AA6D;
+  border: 1px solid #1C841C;
 }
 
 div.cart-icon {
@@ -48,7 +48,7 @@ div.cart-icon {
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
   border-radius: 50px;
-  background: #04AA6D;
+  background: #1C841C;
   position: fixed;
   box-shadow: 0 0 10px gray;
 }

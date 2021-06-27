@@ -43,7 +43,7 @@ input[type=text], select, textarea {
 
 input[type=submit] {
   display: block;
-  background-color: #04AA6D;
+  background-color: #1C841C;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -71,7 +71,7 @@ div.edit-image-container {
 
 .edit-image-button {
   display: block;
-  background-color: #04AA6D;
+  background-color: #1C841C;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -82,7 +82,7 @@ div.edit-image-container {
 button.back {
   float: left;
   margin-left: 12px;
-  background-color: #04AA6D;
+  background-color: #1C841C;
   color: white;
   padding: 14px 20px;
   border: none;
