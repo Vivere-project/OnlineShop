@@ -29,10 +29,9 @@ div.topnav {
 }
 
 div.add-new-item-card {
-  background-image : linear-gradient(to bottom,
-  #97e095,
-  #a6f5b8,
-  #9bd299);
+  background-image : radial-gradient(
+          #a6f5b8,
+          #1C841C);
 }
 
 .plus {
