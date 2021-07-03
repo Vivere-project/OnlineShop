@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Api.Extensions;
 using OnlineShop.Api.ViewModels;
 using OnlineShop.Application;
+using OnlineShop.Application.Services;
 using OnlineShop.Domain;
 
 namespace OnlineShop.Api.Controllers

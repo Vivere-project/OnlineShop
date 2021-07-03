@@ -2,20 +2,27 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using OnlineShop.Application.Models;
 using OnlineShop.Domain;
+using OnlineShop.Domain.Exceptions;
 
-namespace OnlineShop.Application
+namespace OnlineShop.Application.Services
 {
     public class ItemService
     {
         private readonly IOnlineShopContext context;
         private readonly string imagesPath;
-        
-        public ItemService(IOnlineShopContext context, string imagesPath)
+        private readonly ILogger logger;
+
+        public ItemService(
+            IOnlineShopContext context,
+            string imagesPath,
+            ILogger<ItemService> logger)
         {
             this.context = context;
             this.imagesPath = imagesPath;
+            this.logger = logger;
         }
         
         public async Task<List<Item>> GetItems()
@@ -25,7 +32,14 @@ namespace OnlineShop.Application
 
         public async Task<Item?> GetItemById(int id)
         {
-            return await context.Items.FirstOrDefaultAsync(i => i.Id == id);
+            try
+            {
+                return await context.Items.FirstAsync(i => i.Id == id);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ValueNotFoundException("item", id.ToString());
+            }
         }
 
         public async Task<Item?> CreateItem(ItemDto itemDto)
@@ -34,10 +48,12 @@ namespace OnlineShop.Application
             if (itemDto.ImageFileDetails != null)
             {
                 if (!ImageHelpers.HasImageExtension(itemDto.ImageFileDetails))
-                    throw new Exception("Wrong file extension");
+                    throw new WrongFileExtension(itemDto.ImageFileDetails.Extension);
                 
+                logger.Log(LogLevel.Information, "Creating image {ImageName}", itemDto.ImageFileDetails.Name);
                 uniqueFileName = 
                     await ImageHelpers.GenerateFileNameAndSaveFile(itemDto.ImageFileDetails, imagesPath);
+                logger.Log(LogLevel.Information, "Finished creating image {ImageName}", itemDto.ImageFileDetails.Name);
             }
 
             var insertedItem = context.Items.Add(itemDto.ToDbItem(uniqueFileName)).Entity;
@@ -49,7 +65,7 @@ namespace OnlineShop.Application
         {
             var itemFromDb = await context.Items.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
             if (itemFromDb == null)
-                throw new Exception($"Item with id = {id} was not found");
+                throw new ValueNotFoundException("Item", id.ToString());
 
             item.Id = id;
             item.ImageFileName = itemFromDb.ImageFileName;
@@ -64,12 +80,25 @@ namespace OnlineShop.Application
             var itemFromDb = await context.Items.FirstOrDefaultAsync(i => i.Id == id);
 
             if (itemFromDb == null)
-                throw new Exception($"Item with id = {id} was not found");
-            if (image == null || !ImageHelpers.HasImageExtension(image))
-                throw new Exception("Wrong file");
-
+                throw new ValueNotFoundException("Item", id.ToString());
+            if (image != null && !ImageHelpers.HasImageExtension(image))
+                throw new WrongFileExtension(image.Extension);
+            
+            if (itemFromDb.ImageFileName != null) 
+                logger.Log(LogLevel.Information, "Deleting image {ImageName}", itemFromDb.ImageFileName);
+            
             ImageHelpers.DeleteImageByName(itemFromDb.ImageFileName, imagesPath);
-            var uniqueFileName = await ImageHelpers.GenerateFileNameAndSaveFile(image, imagesPath);
+            
+            if (itemFromDb.ImageFileName != null) 
+                logger.Log(LogLevel.Information, "Finished deleting image {ImageName}", itemFromDb.ImageFileName);
+            
+            string? uniqueFileName = null;
+            if (image != null)
+            {
+                logger.Log(LogLevel.Information, "Creating image {ImageName}", image.Name);
+                uniqueFileName = await ImageHelpers.GenerateFileNameAndSaveFile(image, imagesPath);
+                logger.Log(LogLevel.Information, "Finished creating image {ImageName}", image.Name);
+            }
 
             itemFromDb.ImageFileName = uniqueFileName;
             await context.SaveChangesAsync();
@@ -79,7 +108,7 @@ namespace OnlineShop.Application
         {
             var itemFromDb = await context.Items.FirstOrDefaultAsync(i => i.Id == id);
             if (itemFromDb == null)
-                throw new Exception($"Item with id = {id} not found");
+                throw new ValueNotFoundException("Item", id.ToString());
             
             ImageHelpers.DeleteImageByName(itemFromDb.ImageFileName, imagesPath);
             var removedItem = context.Items.Remove(itemFromDb).Entity;

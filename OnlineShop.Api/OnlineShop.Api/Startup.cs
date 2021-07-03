@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OnlineShop.Application;
+using OnlineShop.Application.Services;
 using OnlineShop.Persistence;
 
 namespace OnlineShop.Api

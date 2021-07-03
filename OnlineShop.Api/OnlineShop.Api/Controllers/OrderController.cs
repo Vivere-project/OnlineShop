@@ -19,7 +19,7 @@ namespace OnlineShop.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Order>> CreateOrder(List<Item> items)
         {
-            TelegramBot.TelegramBot.SendMessage(items);
+            TelegramBot.EShopBot.SendItemsMessage(items);
             var order = new Order();
             return Created($"{Request.GetDisplayUrl()}/{order.Id}", order);
         }
