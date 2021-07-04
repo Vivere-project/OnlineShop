@@ -64,6 +64,7 @@ namespace OnlineShop.Api
             var message = string.IsNullOrEmpty(valueNotFoundException.Message)
                  ? "Item was not found"
                 : valueNotFoundException.Message;
+            TelegramBot.EShopBot.SendTextMessage($"Error occured: {valueNotFoundException}");
             await context.Response.WriteAsync(message);
         }
 
@@ -76,12 +77,16 @@ namespace OnlineShop.Api
             if (isDevelopment)
                 await context.Response.WriteAsync(authenticationException.ToString());
             else
+            {
+                TelegramBot.EShopBot.SendTextMessage($"Error occured: {authenticationException}");
                 await context.Response.WriteAsync(message);
+            }
         }
 
         private static async Task HandleBadValueExceptionAsync(HttpContext context, ArgumentException badValueException)
         {
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            TelegramBot.EShopBot.SendTextMessage($"Error occured: {badValueException}");
             await context.Response.WriteAsync(badValueException.Message);
         }
 
