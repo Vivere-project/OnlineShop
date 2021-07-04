@@ -91,7 +91,10 @@ namespace OnlineShop.Api
             if (isDevelopment)
                 await context.Response.WriteAsync(exception.ToString());
             else
+            {
+                TelegramBot.EShopBot.SendTextMessage($"Error occured: {exception}");
                 await context.Response.WriteAsync("Something went wrong, please try again in a few minutes");
+            }
         }
     }
 }
