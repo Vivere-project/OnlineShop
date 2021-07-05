@@ -18,11 +18,11 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore OnlineShop.Api/OnlineShop.Api/
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build OnlineShop.Api/OnlineShop.Api/ --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test OnlineShop.Api/OnlineShop.Api/ --no-build --verbosity normal
     - name: Run SSH command
       uses: garygrossgarten/github-action-ssh@v0.3.0
       with: # pull changes, replace conn string, build, and restart service
