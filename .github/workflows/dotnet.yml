@@ -1,0 +1,40 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Run SSH command
+      uses: garygrossgarten/github-action-ssh@v0.3.0
+      with: # pull changes, replace conn string, build, and restart service
+        command: >
+          service online-shop stop && echo "Stopped project service" &&
+          cd /home/Projects/OnlineShop && echo "Went to OnlineShop repository" && 
+          git reset --hard && echo "Removed previous changes" && 
+          git pull git@github.com:valeriu33/OnlineShop.git && echo "Pulled new changes from github" && 
+          cd OnlineShop.Api/OnlineShop.Api && echo "Went to OnlineShop.Api project" && 
+          sed 's/"OnlineShop": ""/"OnlineShop": "${{ secrets.connection_string }}"/g' appsettings.json -i && echo "Changed the connection string" && 
+          dotnet publish --configuration Release && echo "Built the project" && 
+          service online-shop restart && echo "Restarted project service" 
+        host: ${{ secrets.remote_host }}
+        username: ${{ secrets.remote_user }}
+        privateKey: ${{ secrets.ssh_private_key }}
