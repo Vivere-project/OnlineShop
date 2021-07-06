@@ -37,8 +37,7 @@ namespace OnlineShop.Application
 
         public static FileStream GetImage(string imageFileName, string imagesPath)
         {
-            var uploadFolder = Path.Combine(imagesPath, "Images");
-            var filePath = Path.Combine(uploadFolder, imageFileName);
+            var filePath = Path.Combine(imagesPath, imageFileName);
             try
             {
                 return new FileStream(filePath, FileMode.Open);

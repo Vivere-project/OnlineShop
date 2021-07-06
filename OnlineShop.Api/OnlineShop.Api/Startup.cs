@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +37,10 @@ namespace OnlineShop.Api
             // Add strongly typed AppSettings
             var appSettingsSection = Configuration.GetSection("AppSettings");
 
-            var imagesPath = Path.Combine(Environment.ContentRootPath, "Images");
+            var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "Images");
+            Console.WriteLine(imagesPath);
+            Console.WriteLine(imagesPath);
+            Console.WriteLine(imagesPath);
             services.AddScoped(sp => 
                 ActivatorUtilities.CreateInstance<ItemService>(sp, imagesPath));
             services.AddScoped<OrderService>();
@@ -51,12 +55,14 @@ namespace OnlineShop.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OnlineShop.Api v1"));
             }
-            app.UseMiddleware<ExceptionHandlingMiddleware>(env.IsDevelopment());
+            
             app.UseCors(
                 options => options.WithOrigins("*").AllowAnyMethod()
             );
             app.UseHttpsRedirection();
-
+            
+            app.UseMiddleware<ExceptionHandlingMiddleware>(env.IsDevelopment());
+            
             app.UseRouting();
 
             app.UseAuthorization();
