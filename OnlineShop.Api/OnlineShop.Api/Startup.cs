@@ -51,6 +51,7 @@ namespace OnlineShop.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OnlineShop.Api v1"));
             }
+            app.UseMiddleware<ExceptionHandlingMiddleware>(env.IsDevelopment());
             app.UseCors(
                 options => options.WithOrigins("*").AllowAnyMethod()
             );
