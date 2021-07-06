@@ -86,7 +86,7 @@ namespace OnlineShop.Api
         private static async Task HandleBadValueExceptionAsync(HttpContext context, ArgumentException badValueException)
         {
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-            TelegramBot.EShopBot.SendTextMessage($"Error occured: {badValueException}");
+            TelegramBot.EShopBot.SendTextMessage($"Error occured: {badValueException.Message}");
             await context.Response.WriteAsync(badValueException.Message);
         }
 

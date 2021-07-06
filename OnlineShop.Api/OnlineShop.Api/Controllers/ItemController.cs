@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Api.Extensions;
-using OnlineShop.Api.ViewModels;
-using OnlineShop.Application;
+using OnlineShop.Api.ViewModels.ItemViewModels;
 using OnlineShop.Application.Services;
 using OnlineShop.Domain;
 
@@ -38,24 +37,14 @@ namespace OnlineShop.Api.Controllers
         public async Task<ActionResult<Item>> GetItem(int id)
         {
             var dbItem = await itemService.GetItemById(id);
-            if (dbItem == null)
-                return NotFound($"Item with Id = {id.ToString()} not found");
             return Ok(dbItem.ToResponseModel());
         }
 
         [HttpGet("image/{itemId:int}")]
         public async Task<IActionResult> DownloadImageByItemId(int itemId)
         {
-            var dbItem = await itemService.GetItemById(itemId);
-
-            if (string.IsNullOrEmpty(dbItem.ImageFileName))
-                return BadRequest("This Item has no photo");
-            
-            var uploadFolder = Path.Combine(hostEnvironment.ContentRootPath, "Images");
-            var filePath = Path.Combine(uploadFolder, dbItem.ImageFileName);
-            await using var fileStream = new FileStream(filePath, FileMode.Open);
-
-            return File(await System.IO.File.ReadAllBytesAsync(filePath), "image/jpg");
+            var imageStream = await itemService.GetImageByItemId(itemId);
+            return File(imageStream, "image/jpg");
         }  
 
         [HttpPost]

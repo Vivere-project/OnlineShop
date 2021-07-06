@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using OnlineShop.Application.Models;
+using OnlineShop.Domain.Exceptions;
 
 namespace OnlineShop.Application
 {
@@ -32,6 +33,20 @@ namespace OnlineShop.Application
             
             var filePath = Path.Combine(imagesPath, imageFileName);
             File.Delete(filePath);
+        }
+
+        public static FileStream GetImage(string imageFileName, string imagesPath)
+        {
+            var uploadFolder = Path.Combine(imagesPath, "Images");
+            var filePath = Path.Combine(uploadFolder, imageFileName);
+            try
+            {
+                return new FileStream(filePath, FileMode.Open);
+            }
+            catch
+            {
+                throw new ImageNotFound(filePath);
+            }
         }
     }
 }

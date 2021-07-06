@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -30,7 +31,7 @@ namespace OnlineShop.Application.Services
             return await context.Items.ToListAsync();
         }
 
-        public async Task<Item?> GetItemById(int id)
+        public async Task<Item> GetItemById(int id)
         {
             try
             {
@@ -115,6 +116,16 @@ namespace OnlineShop.Application.Services
 
             await context.SaveChangesAsync();
             return removedItem;
+        }
+
+        public async Task<FileStream> GetImageByItemId(int itemId)
+        {
+            var dbItem = await GetItemById(itemId);
+
+            if (string.IsNullOrEmpty(dbItem.ImageFileName))
+                throw new ImageNotFound(dbItem.ImageFileName);
+
+            return ImageHelpers.GetImage(dbItem.ImageFileName, imagesPath);
         }
     }
 }
