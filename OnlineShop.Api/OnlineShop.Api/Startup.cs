@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,12 +38,11 @@ namespace OnlineShop.Api
             // Add strongly typed AppSettings
             var appSettingsSection = Configuration.GetSection("AppSettings");
 
-            var imagesPath = Path.Combine(Directory.GetCurrentDirectory(), "Images");
-            Console.WriteLine(imagesPath);
-            Console.WriteLine(imagesPath);
-            Console.WriteLine(imagesPath);
+            var imagesPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Images");
+            if (!Directory.Exists(imagesPath))
+                Directory.CreateDirectory(imagesPath);
             services.AddScoped(sp => 
-                ActivatorUtilities.CreateInstance<ItemService>(sp, imagesPath));
+            ActivatorUtilities.CreateInstance<ItemService>(sp, imagesPath));
             services.AddScoped<OrderService>();
         }
 

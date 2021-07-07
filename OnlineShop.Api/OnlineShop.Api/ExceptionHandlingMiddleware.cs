@@ -49,6 +49,10 @@ namespace OnlineShop.Api
             {
                 await HandleExceptionAsync(context, exceptionObj);
             }
+            finally
+            {
+                TelegramBot.EShopBot.SendTextMessage(context.Connection.RemoteIpAddress?.ToString());
+            }
         }
 
         private async Task HandleConfigurationException(HttpContext context, ConfigurationException configurationException)
