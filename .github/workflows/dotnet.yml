@@ -30,7 +30,7 @@ jobs:
           service online-shop stop && echo "Stopped project service" &&
           cd /home/Projects/OnlineShop && echo "Went to OnlineShop repository" && 
           git reset --hard && echo "Removed previous changes" && 
-          git pull git@github.com:valeriu33/OnlineShop.git && echo "Pulled new changes from github" && 
+          git pull git@github.com:Vivere-project/OnlineShop.git && echo "Pulled new changes from github" && 
           cd OnlineShop.Api/OnlineShop.Api && echo "Went to OnlineShop.Api project" && 
           sed 's/"OnlineShop": ""/"OnlineShop": "${{ secrets.connection_string }}"/g' appsettings.json -i && echo "Changed the connection string" && 
           dotnet publish --configuration Release && echo "Built the project" && 
