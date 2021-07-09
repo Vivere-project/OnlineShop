@@ -25,7 +25,7 @@ jobs:
       run: dotnet test OnlineShop.Api/OnlineShop.Api/ --no-build --verbosity normal
       
   deploy:
-    name: Deploy to firebase
+    name: Deploy to server
     runs-on: ubuntu-latest
     # only run if build job complte successfully 
     needs: [build]
