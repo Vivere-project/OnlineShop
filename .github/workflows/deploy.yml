@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-
+    name: Verify if Build passes
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +23,14 @@ jobs:
       run: dotnet build OnlineShop.Api/OnlineShop.Api/ --no-restore
     - name: Test
       run: dotnet test OnlineShop.Api/OnlineShop.Api/ --no-build --verbosity normal
+      
+  deploy:
+    name: Deploy to firebase
+    runs-on: ubuntu-latest
+    # only run if build job complte successfully 
+    needs: [build]
+    
+    steps:
     - name: Run SSH command
       uses: garygrossgarten/github-action-ssh@v0.3.0
       with: # pull changes, replace conn string, build, and restart service
@@ -33,7 +41,11 @@ jobs:
           git pull git@github.com:Vivere-project/OnlineShop.git && echo "Pulled new changes from github" && 
           cd OnlineShop.Api/OnlineShop.Api && echo "Went to OnlineShop.Api project" && 
           sed 's/"OnlineShop": ""/"OnlineShop": "${{ secrets.connection_string }}"/g' appsettings.json -i && echo "Changed the connection string" && 
-          dotnet publish --configuration Release && echo "Built the project" && 
+          dotnet publish --configuration Release && echo "Built Api project" && 
+          cd /home/Projects/OnlineShop/OnlineShop.Web && echo "Went to Web project"
+          npm run start build && echo "Built Web project"
+          rm -r /var/www/html/*
+          cp -r /home/Projects/OnlineShop/OnlineShop.Web/dist/online-shop/* /var/www/html/
           service online-shop restart && echo "Restarted project service" 
         host: ${{ secrets.remote_host }}
         username: ${{ secrets.remote_user }}
