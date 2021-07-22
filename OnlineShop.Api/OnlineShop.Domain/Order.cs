@@ -7,5 +7,9 @@ namespace OnlineShop.Domain
         public int Id { get; set; }
 
         public ICollection<OrderedItem> OrderedItems { get; set; } = new List<OrderedItem>();
+        
+        public int StatusId { get; set; }
+
+        public Status Status { get; set; }
     }
 }

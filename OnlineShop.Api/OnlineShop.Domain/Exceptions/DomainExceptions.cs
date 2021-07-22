@@ -38,11 +38,11 @@ namespace OnlineShop.Domain.Exceptions
         }
     }
 
-    public class ImageNotFound : Exception
+    public class ImageNotFoundException : Exception
     {
         public string? ImageFullName { get; }
         
-        public ImageNotFound(string? imageFullName)
+        public ImageNotFoundException(string? imageFullName)
         {
             ImageFullName = imageFullName;
         }

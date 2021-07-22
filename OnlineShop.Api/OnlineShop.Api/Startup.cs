@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OnlineShop.Application;
 using OnlineShop.Application.Services;
+using OnlineShop.Application.Services.Interfaces;
 using OnlineShop.Persistence;
 
 namespace OnlineShop.Api
@@ -38,11 +39,20 @@ namespace OnlineShop.Api
             // Add strongly typed AppSettings
             var appSettingsSection = Configuration.GetSection("AppSettings");
 
-            var imagesPath = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Images");
-            if (!Directory.Exists(imagesPath))
-                Directory.CreateDirectory(imagesPath);
-            services.AddScoped(sp => 
-            ActivatorUtilities.CreateInstance<ItemService>(sp, imagesPath));
+            if (Environment.IsDevelopment())
+            {
+                services.AddScoped<IFileService, RemoteFileService>();
+            }
+            else
+            {
+                var imagesPath = Path.Combine(Configuration["ImagesPath"], "Images");
+                if (!Directory.Exists(imagesPath))
+                    Directory.CreateDirectory(imagesPath);
+                services.AddScoped<IFileService>(sp => 
+                    ActivatorUtilities.CreateInstance<RemoteFileService>(sp, imagesPath));
+            }
+
+            services.AddScoped<ItemService>();
             services.AddScoped<OrderService>();
         }
 

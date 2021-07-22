@@ -21,8 +21,4 @@
       <ProjectReference Include="..\OnlineShop.TelegramBot\OnlineShop.TelegramBot.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Images" />
-    </ItemGroup>
-
 </Project>

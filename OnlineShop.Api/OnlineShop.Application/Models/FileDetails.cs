@@ -9,6 +9,9 @@ namespace OnlineShop.Application.Models
             Content = content;
         }
 
+        /// <summary>
+        /// File name with extension
+        /// </summary>
         public string Name { get; }
 
         public string Extension { get; }

@@ -30,7 +30,7 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
                 Id = item.Id,
                 Name = item.Name,
                 Description = item.Description,
-                HasPhoto = string.IsNullOrWhiteSpace(item.ImageFileName),
+                HasPhoto = !string.IsNullOrWhiteSpace(item.ImageFileName),
                 Price = item.Price,
                 MinimalBuyQuantity = item.MinimalBuyQuantity,
                 QuantityInStock = item.QuantityInStock

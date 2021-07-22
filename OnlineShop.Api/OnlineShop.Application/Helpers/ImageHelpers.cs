@@ -10,42 +10,14 @@ namespace OnlineShop.Application
     public static class ImageHelpers
     {
         private static readonly string[] AvailablePhotoExtensions = {".jpg", ".jpeg", ".png", ".gif", ".bmp"};
-        public static async Task<string> GenerateFileNameAndSaveFile(FileDetails image, string imagesPath)
+        public static string GenerateFileName(FileDetails image)
         {
-            var uniqueFileName = Guid.NewGuid() + "_" + image.Name;
-            var filePath = Path.Combine(imagesPath, uniqueFileName);
-            
-            await using var fileStream = new FileStream(filePath, FileMode.Create);
-            await fileStream.WriteAsync(image.Content);
-
-            return uniqueFileName;
+            return Guid.NewGuid() + "_" + image.Name;
         }
 
         public static bool HasImageExtension(FileDetails image)
         {
             return AvailablePhotoExtensions.Contains(image.Extension);
-        }
-
-        public static void DeleteImageByName(string? imageFileName, string imagesPath)
-        {
-            if (string.IsNullOrEmpty(imageFileName))
-                return;
-            
-            var filePath = Path.Combine(imagesPath, imageFileName);
-            File.Delete(filePath);
-        }
-
-        public static FileStream GetImage(string imageFileName, string imagesPath)
-        {
-            var filePath = Path.Combine(imagesPath, imageFileName);
-            try
-            {
-                return new FileStream(filePath, FileMode.Open);
-            }
-            catch
-            {
-                throw new ImageNotFound(filePath);
-            }
         }
     }
 }

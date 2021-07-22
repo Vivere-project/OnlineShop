@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Net;
 using System.Security.Authentication;
 using System.Threading.Tasks;
@@ -41,7 +40,7 @@ namespace OnlineShop.Api
             {
                 await AuthenticationExceptionHandler(context, authenticationException);
             }
-            catch (ImageNotFound imageNotFound)
+            catch (ImageNotFoundException imageNotFound)
             {
                 await HandleFileNotFoundException(context, imageNotFound);
             }
@@ -99,14 +98,14 @@ namespace OnlineShop.Api
             await context.Response.WriteAsync(badValueException.Message);
         }
         
-        private async Task HandleFileNotFoundException(HttpContext context, ImageNotFound imageNotFound)
+        private async Task HandleFileNotFoundException(HttpContext context, ImageNotFoundException imageNotFoundException)
         {
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             if (isDevelopment)
-                await context.Response.WriteAsync(imageNotFound.ImageFullName + " " +imageNotFound.ToString());
+                await context.Response.WriteAsync(imageNotFoundException.ImageFullName + " " +imageNotFoundException.ToString());
             else
             {
-                TelegramBot.EShopBot.SendTextMessage($"Error occured: {imageNotFound.ImageFullName + " " + imageNotFound}");
+                TelegramBot.EShopBot.SendTextMessage($"Error occured: {imageNotFoundException.ImageFullName + " " + imageNotFoundException}");
                 await context.Response.WriteAsync("Something went wrong, please try again in a few minutes");
             }
         }
