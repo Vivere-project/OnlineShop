@@ -46,7 +46,7 @@ jobs:
           npm run start build && echo "Built Web project"
           rm -r /var/www/html/*
           cp -r /home/Projects/OnlineShop/OnlineShop.Web/dist/online-shop/* /var/www/html/
-          service online-shop restart && echo "Restarted project service" 
+          service online-shop start && echo "Restarted project service" 
         host: ${{ secrets.remote_host }}
         username: ${{ secrets.remote_user }}
         privateKey: ${{ secrets.ssh_private_key }}
