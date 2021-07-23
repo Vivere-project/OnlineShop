@@ -32,7 +32,7 @@ namespace OnlineShop.Persistence
             modelBuilder.Entity<OrderedItem>()
                 .HasOne(oi => oi.Item)
                 .WithMany();
-            
+
             modelBuilder.Entity<OrderedItem>()
                 .HasOne(oi => oi.Order)
                 .WithMany(o => o.OrderedItems);
@@ -56,7 +56,7 @@ namespace OnlineShop.Persistence
                         Name = "Finished"
                     },
                 });
-            
+
             modelBuilder.Entity<Order>()
                 .HasOne(s => s.Status)
                 .WithMany();
