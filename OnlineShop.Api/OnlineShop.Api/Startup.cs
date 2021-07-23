@@ -39,17 +39,17 @@ namespace OnlineShop.Api
             // Add strongly typed AppSettings
             var appSettingsSection = Configuration.GetSection("AppSettings");
 
-            if (Environment.IsDevelopment())
-            {
-                services.AddScoped<IFileService, RemoteFileService>();
-            }
-            else
+            if (Convert.ToBoolean(Configuration["UseLocalImages"]))
             {
                 var imagesPath = Path.Combine(Configuration["ImagesPath"], "Images");
                 if (!Directory.Exists(imagesPath))
                     Directory.CreateDirectory(imagesPath);
                 services.AddScoped<IFileService>(sp => 
-                    ActivatorUtilities.CreateInstance<RemoteFileService>(sp, imagesPath));
+                    ActivatorUtilities.CreateInstance<LocalFileService>(sp, imagesPath));
+            }
+            else
+            {
+                services.AddScoped<IFileService, RemoteFileService>();
             }
 
             services.AddScoped<ItemService>();
