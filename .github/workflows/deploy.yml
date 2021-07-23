@@ -42,10 +42,10 @@ jobs:
           cd OnlineShop.Api/OnlineShop.Api && echo "Went to OnlineShop.Api project" && 
           sed 's/"OnlineShop": ""/"OnlineShop": "${{ secrets.connection_string }}"/g' appsettings.json -i && echo "Changed the connection string" && 
           dotnet publish --configuration Release && echo "Built Api project" && 
-          cd /home/Projects/OnlineShop/OnlineShop.Web && echo "Went to Web project"
-          npm run start build && echo "Built Web project"
-          rm -r /var/www/html/*
-          cp -r /home/Projects/OnlineShop/OnlineShop.Web/dist/online-shop/* /var/www/html/
+          cd /home/Projects/OnlineShop/OnlineShop.Web && echo "Went to Web project" &&
+          npm run start build && echo "Built Web project" &&
+          rm -r /var/www/html/* &&
+          cp -r /home/Projects/OnlineShop/OnlineShop.Web/dist/online-shop/* /var/www/html/ &&
           service online-shop start && echo "Restarted project service" 
         host: ${{ secrets.remote_host }}
         username: ${{ secrets.remote_user }}
