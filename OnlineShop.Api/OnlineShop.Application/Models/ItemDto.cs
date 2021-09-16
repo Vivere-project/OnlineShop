@@ -4,7 +4,15 @@ namespace OnlineShop.Application.Models
 {
     public class ItemDto
     {
-        public ItemDto(string name, string description, FileDetails? imageFileDetails, decimal price, uint minimalBuyQuantity, uint quantityInStock)
+        public ItemDto(
+            string name, 
+            string description,
+            FileDetails? imageFileDetails,
+            decimal price,
+            uint minimalBuyQuantity,
+            uint quantityInStock, 
+            uint? volume,
+            int? colorId)
         {
             Name = name;
             Description = description;
@@ -12,6 +20,8 @@ namespace OnlineShop.Application.Models
             Price = price;
             MinimalBuyQuantity = minimalBuyQuantity;
             QuantityInStock = quantityInStock;
+            Volume = volume;
+            ColorId = colorId;
         }
 
         public string Name { get; }
@@ -26,6 +36,10 @@ namespace OnlineShop.Application.Models
         
         public uint QuantityInStock { get; }
 
+        public uint? Volume { get; }
+
+        public int? ColorId { get; set; }
+        
         public Item ToDbItem(string? fileName)
         {
             return new()
@@ -35,7 +49,9 @@ namespace OnlineShop.Application.Models
                 ImageFileName = fileName,
                 Price = Price,
                 MinimalBuyQuantity = MinimalBuyQuantity,
-                QuantityInStock = QuantityInStock
+                QuantityInStock = QuantityInStock,
+                Volume = Volume,
+                ColorId = ColorId
             };
         }
     }

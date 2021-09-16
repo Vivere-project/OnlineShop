@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using OnlineShop.Domain;
 using Telegram.Bot;
@@ -13,12 +15,11 @@ namespace OnlineShop.TelegramBot
         
         public static void SendItemsMessage(IEnumerable<Item> items)
         {
-            var mesasge = new StringBuilder();
-            foreach (var item in items)
-            {
-                mesasge.Append(item.Name);
-                mesasge.Append('\n');
-            }
+            var timezone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Beirut");
+            var timeStamp = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, timezone);
+            var header = $"Ordered at:{timeStamp.ToString("yyyy MM dd hh:mm:ss")}";
+            var body = string.Join('\n', items.Select(i => i.Name));
+            var mesasge = header+Environment.NewLine+body;
             Bot.SendTextMessageAsync(ValeriuChatId, mesasge.ToString());
         }
 

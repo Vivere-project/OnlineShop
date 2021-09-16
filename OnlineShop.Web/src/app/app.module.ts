@@ -3,28 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ItemsComponent } from './shop-module/components/items/items.component';
-import { ContactComponent } from './shop-module/components/contact/contact.component';
-import { ItemCardComponent } from './shop-module/components/item-card/item-card.component';
+import { ItemsComponent } from './modules/shop/components/items/items.component';
+import { ContactComponent } from './modules/shop/components/contact/contact.component';
+import { ItemCardComponent } from './modules/shop/components/item-card/item-card.component';
 import {HttpClientModule} from "@angular/common/http";
-import { ItemDetailsComponent } from './shop-module/components/item-details/item-details.component';
+import { ItemDetailsComponent } from './modules/shop/components/item-details/item-details.component';
 import {RouterModule} from "@angular/router";
 import {NgxsModule} from "@ngxs/store";
 import {environment} from "../environments/environment";
-import { CartComponent } from './shop-module/components/cart/cart.component';
+import { CartComponent } from './modules/shop/components/cart/cart.component';
 import {CartState} from "./store/cart.store";
-import {AdminModule} from "./admin-module/admin.module";
+import {AdminModule} from "./modules/admin/admin.module";
 import {ReactiveFormsModule} from "@angular/forms";
-import {SharedModule} from "./shared-module/shared.module";
+import {SharedModule} from "./modules/shared/shared.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ItemsComponent,
-    ContactComponent,
-    ItemCardComponent,
-    ItemDetailsComponent,
-    CartComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,6 @@
+@import '../../../../../styles/variables';
+@import '../../../../../styles';
+
+@media screen and (max-width: 600px) {
+  li {float: none;}
+}

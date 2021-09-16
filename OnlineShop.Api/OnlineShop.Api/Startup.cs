@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using OnlineShop.Application;
 using OnlineShop.Application.Services;
 using OnlineShop.Application.Services.Interfaces;
+using OnlineShop.Domain;
 using OnlineShop.Persistence;
 
 namespace OnlineShop.Api
@@ -54,6 +55,7 @@ namespace OnlineShop.Api
 
             services.AddScoped<ItemService>();
             services.AddScoped<OrderService>();
+            services.AddScoped<ItemColorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

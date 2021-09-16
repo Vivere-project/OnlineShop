@@ -12,6 +12,10 @@ namespace OnlineShop.Application
         DbSet<OrderedItem> OrderedItems { get; set; }
 
         DbSet<Order> Orders { get; set; }
+
+        public DbSet<Status> Statuses { get; set; }
+
+        public DbSet<ItemColor> ItemColors { get; set; }
         
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

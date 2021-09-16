@@ -1,0 +1,10 @@
+@import '../../../../styles/variables';
+@import '../../../../styles';
+
+footer {
+    text-align: center;
+    padding: 3px;
+    background-color: $base-color-brown;
+    color: white;
+    display: flex;
+}

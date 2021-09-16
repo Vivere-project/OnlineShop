@@ -23,5 +23,12 @@ namespace OnlineShop.Domain
         
         [Range(1, 1_000_000)]
         public uint QuantityInStock { get; set; }
+        
+        [Range(1, 1_000_000)]
+        public uint? Volume { get; set; }
+
+        public int? ColorId { get; set; }
+        
+        public ItemColor? Color { get; set; }
     }
 }

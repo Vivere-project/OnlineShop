@@ -30,14 +30,18 @@ namespace OnlineShop.Application.Services
         
         public async Task<List<Item>> GetItems()
         {
-            return await context.Items.ToListAsync();
+            return await context.Items
+                .Include(i => i.Color)
+                .ToListAsync();
         }
 
         public async Task<Item> GetItemById(int id)
         {
             try
             {
-                return await context.Items.FirstAsync(i => i.Id == id);
+                return await context.Items
+                    .Include(i => i.Color)
+                    .FirstAsync(i => i.Id == id);
             }
             catch (InvalidOperationException)
             {
@@ -79,7 +83,7 @@ namespace OnlineShop.Application.Services
         public async Task UpdateImage(int id, FileDetails? image)
         {
             var itemFromDb = await context.Items.FirstOrDefaultAsync(i => i.Id == id);
-            
+
             if (itemFromDb == null)
                 throw new ValueNotFoundException("Item", id.ToString());
             if (image != null && !ImageHelpers.HasImageExtension(image))
@@ -89,7 +93,10 @@ namespace OnlineShop.Application.Services
 
             string? uniqueFileName = null; // if no image was attached then, you just delete the image
             if (image != null)
+            {
                 uniqueFileName = ImageHelpers.GenerateFileName(image);
+                await fileService.CreateFile(image, uniqueFileName);
+            }
 
             itemFromDb.ImageFileName = uniqueFileName;
             await context.SaveChangesAsync();

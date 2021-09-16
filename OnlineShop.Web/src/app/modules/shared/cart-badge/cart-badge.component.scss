@@ -1,0 +1,42 @@
+@import 'src/styles/variables';
+@import 'src/styles';
+
+.cart-counter {
+  position: absolute;
+  background-color: #ba3e3e;
+  width: 30px;
+  height: 20px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  top: 0px;
+  right: 0px;
+}
+
+.cart-counter-text {
+  position: relative;
+  text-align:center;
+  color: white;
+}
+
+div.cart-icon {
+  left: 90%;
+  top: 80%;
+  width: 100px;
+  height: 100px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  background: $base-color-green;
+  position: fixed;
+  box-shadow: 0 0 10px gray;
+}
+
+div.cart-icon-text {
+  top: 50%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  color: white;
+  position: relative;
+  text-align:center;
+}

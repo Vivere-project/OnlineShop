@@ -1,0 +1,18 @@
+<app-toolbar></app-toolbar>
+
+<div class="container">
+  <img [src]="imageToShow" alt="Item image"
+       *ngIf="!isImageLoading; else noImageFound">
+  <ng-template #noImageFound>
+    <img src="assets/loading.gif" alt="Item image" >
+  </ng-template>
+  <div class="details">
+    <hr>
+    <h1>{{item.name}}</h1>
+    <p class="price">{{item.price}} RON</p>
+    <p>{{item.description}}</p>
+    <button class="generic-button" (click)="addItemToCart()">ADD TO CART</button>
+  </div>
+</div>
+
+<app-cart-badge [itemsCount]="itemsInCartCount"></app-cart-badge>

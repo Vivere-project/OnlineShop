@@ -1,0 +1,51 @@
+@import 'styles/variables';
+
+ul.items-list {
+  list-style-type: none;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  width: 80%;
+  text-align: center;
+  display: flow-root;
+}
+
+.item-li {
+  display: inline-flex;
+  float:left;
+  transition: transform .2s;
+}
+
+.item-li:hover {
+  transform: scale(1.1);
+}
+
+.item-card {
+  width: 250px;
+  height: 404px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  margin: 10px;
+  background-color: white;
+}
+
+div.item-container {
+  height: 100px;
+}
+
+.generic-button {
+  margin-left: 12px;
+  background-color: $base-color-green;
+  color: white;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 11%;
+}

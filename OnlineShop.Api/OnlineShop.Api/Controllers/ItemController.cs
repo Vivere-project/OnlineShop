@@ -18,11 +18,13 @@ namespace OnlineShop.Api.Controllers
     public class ItemController : ControllerBase
     {
         private readonly ItemService itemService;
+        private readonly ItemColorService itemColorService;
         private readonly IWebHostEnvironment hostEnvironment;
 
-        public ItemController(ItemService itemService, IWebHostEnvironment hostEnvironment)
+        public ItemController(ItemService itemService, ItemColorService itemColorService, IWebHostEnvironment hostEnvironment)
         {
             this.itemService = itemService;
+            this.itemColorService = itemColorService;
             this.hostEnvironment = hostEnvironment;
         }
         
@@ -34,7 +36,7 @@ namespace OnlineShop.Api.Controllers
         }
         
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Item>> GetItem(int id)
+        public async Task<ActionResult<ItemResponse>> GetItem(int id)
         {
             var dbItem = await itemService.GetItemById(id);
             return Ok(dbItem.ToResponseModel());
@@ -50,15 +52,26 @@ namespace OnlineShop.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Item>> CreateItem([FromForm] ItemRequestCreate itemRequest)
         {
+            if (itemRequest.Color != null)
+            {
+                var itemColorId = (await itemColorService.CreateItemColor(itemRequest.Color?.ToDbModel())).Id;
+                itemRequest.ColorId = itemColorId;
+            }
+
             var createdDbItem = await itemService.CreateItem(await itemRequest.ToDtoModel());
             var responseItem = createdDbItem.ToResponseModel();
             return Created($"{Request.GetDisplayUrl()}/{responseItem.Id.ToString()}", responseItem);
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<Item>> UpdateItem([FromRoute] int id, [FromBody] ItemRequestUpdate item)
+        public async Task<ActionResult<Item>> UpdateItem([FromRoute] int id, [FromBody] ItemRequestUpdate itemRequest)
         {
-            var updatedDbItem = await itemService.UpdateItem(id, item.ToDbModel());
+            if (itemRequest.Color != null) // TODO: Update colors instead of creating new
+            {
+                var itemColorId = (await itemColorService.CreateItemColor(itemRequest.Color?.ToDbModel())).Id;
+                itemRequest.ColorId = itemColorId;
+            }
+            var updatedDbItem = await itemService.UpdateItem(id, itemRequest.ToDbModel());
             return Ok(updatedDbItem.ToResponseModel());
         }
 

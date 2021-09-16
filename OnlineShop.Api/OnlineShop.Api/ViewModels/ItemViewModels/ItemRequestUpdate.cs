@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using OnlineShop.Api.ViewModels.ItemColorViewModels;
 using OnlineShop.Application.Models;
 using OnlineShop.Domain;
 
@@ -24,6 +25,12 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
         [Range(1, 1_000_000)]
         [DefaultValue(1)]
         public uint QuantityInStock { get; set; }
+        
+        public uint? Volume { get; set; }
+
+        public int? ColorId { get; set; }
+        
+        public ItemColorViewModel? Color { get; set; }
 
         public Item ToDbModel()
         {
@@ -33,7 +40,9 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
                 Description = Description,
                 Price = Price,
                 MinimalBuyQuantity = MinimalBuyQuantity,
-                QuantityInStock = QuantityInStock
+                QuantityInStock = QuantityInStock,
+                Volume = Volume,
+                ColorId = ColorId
             };
         }
     }

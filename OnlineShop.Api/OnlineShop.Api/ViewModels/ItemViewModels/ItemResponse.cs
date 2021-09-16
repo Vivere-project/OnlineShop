@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using OnlineShop.Api.ViewModels.ItemColorViewModels;
 using OnlineShop.Domain;
 
 namespace OnlineShop.Api.ViewModels.ItemViewModels
@@ -14,11 +15,13 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
         
         public decimal Price { get; set; }
         
-        [Range(1, 1_000_000)]
         public uint MinimalBuyQuantity { get; set; }
         
-        [Range(1, 1_000_000)]
         public uint QuantityInStock { get; set; }
+        
+        public uint? Volume { get; set; }
+
+        public ItemColor? Color { get; set; }
     }
     
     public static class ItemExtensions
@@ -33,7 +36,9 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
                 HasPhoto = !string.IsNullOrWhiteSpace(item.ImageFileName),
                 Price = item.Price,
                 MinimalBuyQuantity = item.MinimalBuyQuantity,
-                QuantityInStock = item.QuantityInStock
+                QuantityInStock = item.QuantityInStock,
+                Volume = item.Volume,
+                Color = item.Color
             };
         }
     }

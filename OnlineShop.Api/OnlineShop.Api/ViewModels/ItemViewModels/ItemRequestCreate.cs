@@ -1,8 +1,10 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using OnlineShop.Api.Extensions;
+using OnlineShop.Api.ViewModels.ItemColorViewModels;
 using OnlineShop.Application.Models;
 using OnlineShop.Domain;
 
@@ -29,7 +31,14 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
         [Range(1, 1_000_000)] 
         [DefaultValue(1)]
         public uint QuantityInStock { get; set; }
+        
+        [Range(1, 1_000_000)]
+        public uint? Volume { get; set; }
 
+        public int? ColorId { get; set; }
+
+        public ItemColorViewModel? Color { get; set; }
+        
         public async Task<ItemDto> ToDtoModel()
         {
             return new (
@@ -38,7 +47,9 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
                 imageFileDetails: await Image.ToFileDetails(),
                 price: Price,
                 minimalBuyQuantity: MinimalBuyQuantity,
-                quantityInStock: QuantityInStock
+                quantityInStock: QuantityInStock,
+                volume: Volume,
+                colorId: ColorId
             );
         }
     }

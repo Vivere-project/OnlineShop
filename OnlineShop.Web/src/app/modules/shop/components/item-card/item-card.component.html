@@ -1,0 +1,12 @@
+
+<div class="item-card">
+  <img [src]="imageToShow" alt="item image"
+       *ngIf="!isImageLoading; else noImageFound">
+  <ng-template #noImageFound>
+    <img src="assets/loading.gif" alt="item image">
+  </ng-template>
+  <div class="item-container">
+    <h4>{{item.name}}</h4>
+    <p>{{item.price}} MDL </p>
+  </div>
+</div>

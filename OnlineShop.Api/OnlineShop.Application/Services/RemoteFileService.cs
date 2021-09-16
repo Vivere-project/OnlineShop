@@ -44,8 +44,8 @@ namespace OnlineShop.Application.Services
         public async Task DeleteFile(string name)
         {
             var response = await httpClient.DeleteAsync(name);
-            if (response.StatusCode != HttpStatusCode.OK)
-                throw new Exception(response.ReasonPhrase);
+            // if (response.StatusCode != HttpStatusCode.OK)
+            //     throw new Exception(response.ReasonPhrase);
         }
     }
 }

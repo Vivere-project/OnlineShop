@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OnlineShop.Application;
 using OnlineShop.Domain;
 
@@ -16,6 +17,8 @@ namespace OnlineShop.Persistence
         
         public DbSet<Status> Statuses { get; set; }
 
+        public DbSet<ItemColor> ItemColors { get; set; }
+        
         public OnlineShopContext(DbContextOptions<OnlineShopContext> options) :base(options)
         { }
 
@@ -60,6 +63,12 @@ namespace OnlineShop.Persistence
             modelBuilder.Entity<Order>()
                 .HasOne(s => s.Status)
                 .WithMany();
+
+            modelBuilder.Entity<Item>()
+                .HasOne(i => i.Color)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
+
         }
     }
 }
