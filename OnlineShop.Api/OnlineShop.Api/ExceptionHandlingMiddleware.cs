@@ -50,7 +50,10 @@ namespace OnlineShop.Api
             }
             finally
             {
-                TelegramBot.EShopBot.SendTextMessage(context.Connection.RemoteIpAddress?.ToString());
+                //::1
+                var ipAddress = context.Connection.RemoteIpAddress?.ToString();
+                var text = ipAddress != "::1" ? ipAddress : "localhost";
+                TelegramBot.EShopBot.SendTextMessage(text);
             }
         }
 
