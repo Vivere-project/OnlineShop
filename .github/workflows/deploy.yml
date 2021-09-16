@@ -43,6 +43,7 @@ jobs:
           sed 's/"OnlineShop": ""/"OnlineShop": "${{ secrets.connection_string }}"/g' appsettings.json -i && echo "Changed the connection string" && 
           dotnet publish --configuration Release && echo "Built Api project" && 
           cd /home/Projects/OnlineShop/OnlineShop.Web && echo "Went to Web project" &&
+          npm i && echo "installed depentencies" &&
           npm run build --prod && echo "Built Web project" &&
           rm -r /var/www/html/* &&
           cp -r /home/Projects/OnlineShop/OnlineShop.Web/dist/online-shop/* /var/www/html/ &&
