@@ -1,7 +1,9 @@
 using System;
 using System.Net;
+using System.Net.Http;
 using System.Security.Authentication;
 using System.Threading.Tasks;
+using IpInfo;
 using Microsoft.AspNetCore.Http;
 using OnlineShop.Domain.Exceptions;
 
@@ -52,8 +54,13 @@ namespace OnlineShop.Api
             {
                 //::1
                 var ipAddress = context.Connection.RemoteIpAddress?.ToString();
-                var text = ipAddress != "::1" ? ipAddress : "localhost";
-                TelegramBot.EShopBot.SendTextMessage(text);
+                if (ipAddress != "::1")
+                {
+                    using var client = new HttpClient();
+                    var api = new IpInfoApi("16c5c8c0127d4e", client);
+                    var response = await api.GetInformationByIpAsync(ipAddress);
+                    TelegramBot.EShopBot.SendTextMessage(ipAddress + " - " + response.City);
+                }
             }
         }
 
