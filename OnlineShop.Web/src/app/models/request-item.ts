@@ -3,7 +3,7 @@ export class RequestItem {
   description: string = "";
   price: number = 0;
   volume: number | null  = null;
-  minimalBuyQuantity: number = 0;
+  minimalBuyQuantity: number = 1;
   quantityInStock: number = 0;
   color: ItemColorRequest | null = null;
 }

@@ -24,13 +24,10 @@ export class ItemService {
     return this.http.get(`api/item/image/${id}`,  { responseType: 'blob' });
   }
 
+  /// Adds every property of item separately!
   createItem(item: RequestItem, image: File | null): Observable<Item> {
     let formItem = new FormData();
-    formItem.append("name", item.name);
-    formItem.append("description", item.description);
-    formItem.append("price", item.price.toString());
-    formItem.append("minimalBuyQuantity", item.minimalBuyQuantity.toString());
-    formItem.append("quantityInStock", item.quantityInStock.toString());
+    formItem.append("itemRequest", JSON.stringify(item));
     if (image != null)
       formItem.append("image", image);
 

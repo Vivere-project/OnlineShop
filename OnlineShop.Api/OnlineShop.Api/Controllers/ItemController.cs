@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BrunoZell.ModelBinding;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -50,7 +51,9 @@ namespace OnlineShop.Api.Controllers
         }  
 
         [HttpPost]
-        public async Task<ActionResult<Item>> CreateItem([FromForm] ItemRequestCreate itemRequest)
+        public async Task<ActionResult<Item>> CreateItem(
+            [ModelBinder(BinderType = typeof(JsonModelBinder))] ItemRequestCreate itemRequest,
+            IFormFile image)
         {
             if (itemRequest.Color != null)
             {
@@ -58,7 +61,7 @@ namespace OnlineShop.Api.Controllers
                 itemRequest.ColorId = itemColorId;
             }
 
-            var createdDbItem = await itemService.CreateItem(await itemRequest.ToDtoModel());
+            var createdDbItem = await itemService.CreateItem(await itemRequest.ToDtoModel(image));
             var responseItem = createdDbItem.ToResponseModel();
             return Created($"{Request.GetDisplayUrl()}/{responseItem.Id.ToString()}", responseItem);
         }

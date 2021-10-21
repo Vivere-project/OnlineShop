@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {ItemService} from "../../../../services/item.service";
 import {ActivatedRoute} from "@angular/router";
 import {Item, ItemColor} from "../../../../models/item";
+import {RequestItem} from "../../../../models/request-item";
 
 @Component({
   selector: 'app-edit-item',
@@ -10,7 +11,6 @@ import {Item, ItemColor} from "../../../../models/item";
   styleUrls: ['./edit-item.component.scss']
 })
 export class EditItemComponent implements OnInit {
-  chosenColor = '';
 
   item: Item = {
     id: 0,
@@ -26,16 +26,6 @@ export class EditItemComponent implements OnInit {
   isImageLoading: boolean = false
   fileToUpload: File | null = null;
 
-  itemForm = new FormGroup({
-    name: new FormControl('name'),
-    description: new FormControl('description'),
-    volume: new FormControl('volume'),
-    price: new FormControl('price'),
-    minimalBuyQuantity: new FormControl('minimalBuyQuantity'),
-    quantityInStock: new FormControl('quantityInStock'),
-    colorName: new FormControl("colorName"),
-  });
-
   constructor(
     private route: ActivatedRoute,
     private itemService: ItemService) { }
@@ -46,19 +36,12 @@ export class EditItemComponent implements OnInit {
       {
         this.item = item;
         this.getImageFromService(this.item);
-        this.itemForm.patchValue({
-          name: item.name,
-          description: item.description,
-          volume: item.volume,
-          price: item.price,
-          minimalBuyQuantity: item.minimalBuyQuantity,
-          quantityInStock: item.quantityInStock,
-          colorHex: item.color?.colorHex,
-          colorName: item.color?.name,
-        });
-        this.chosenColor = this.item.color?.colorHex ?? '';
       }
     );
+  }
+
+  submit(event: RequestItem){
+    this.itemService.updateItem(this.item.id, event).subscribe(_ => alert("Update succeeded"));
   }
 
   createImageFromBlob(image: Blob) { // Todo: these two methods repeat in multiple components
@@ -82,31 +65,6 @@ export class EditItemComponent implements OnInit {
       this.imageToShow = "../../../assets/image-not-found.png";
       console.log(error);
     });
-  }
-
-  editItemSubmit() {
-    const colorObj =
-      this.chosenColor != ''
-      ? {
-          name: this.itemForm.get("colorName")?.value,
-          colorHex: this.chosenColor,
-        }
-      : null
-
-    if (colorObj != null && colorObj.name == '') {
-      colorObj.name = colorObj.colorHex
-    }
-
-    this.itemService.updateItem(this.item.id,
-      {
-        name: this.itemForm.get("name")?.value,
-        description: this.itemForm.get("description")?.value,
-        volume: +this.itemForm.get('volume')?.value,
-        price: +this.itemForm.get("price")?.value,
-        quantityInStock: +this.itemForm.get("quantityInStock")?.value,
-        minimalBuyQuantity: +this.itemForm.get("minimalBuyQuantity")?.value,
-        color: colorObj,
-      }).subscribe(_ => alert("Update succeeded"));
   }
 
   handleFileInput(event: Event) {

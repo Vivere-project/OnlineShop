@@ -1,0 +1,29 @@
+<div class="input-form" [formGroup]="itemForm">
+    <label for="name" i18n>Name: </label>
+    <input id="name" type="text" formControlName="name">
+
+    <label for="description" i18n>Description: </label>
+    <input id="description" type="text" formControlName="description">
+
+    <label for="volume" i18n>Volume: </label>
+    <input id="volume" type="text" formControlName="volume" [defaultValue]="">
+
+    <label for="price" i18n>Price: </label>
+    <input id="price" type="text" formControlName="price">
+
+    <label for="minimalBuyQuantity" i18n>Minimal buy quantity: </label>
+    <input id="minimalBuyQuantity" type="text" formControlName="minimalBuyQuantity">
+
+    <label for="quantityInStock" i18n>Quantity left in stock: </label>
+    <input id="quantityInStock" type="text" formControlName="quantityInStock">
+
+    <label for="colorHex" i18n>Color: </label>
+    <input id="colorName" type="text" formControlName="colorName">
+    <input id="colorHex" type="text"
+           [(colorPicker)]="chosenColor"
+           [style.background]="chosenColor"
+           readonly/>
+    <!--        The image is set separately in Edit and Create components -->
+
+    <input type="submit" [disabled]="!itemForm.valid" (click)="submit()" value="Submit">
+</div>

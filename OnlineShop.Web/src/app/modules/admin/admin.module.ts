@@ -7,13 +7,15 @@ import {EditItemComponent} from './components/edit-item/edit-item.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {AddItemComponent} from './components/add-item/add-item.component';
 import {ColorPickerModule} from "ngx-color-picker";
+import { ItemFormComponent } from './components/shared/item-form/item-form.component';
 
 @NgModule({
   declarations: [
     ItemsComponent,
     ItemCardComponent,
     EditItemComponent,
-    AddItemComponent
+    AddItemComponent,
+    ItemFormComponent,
   ],
   imports: [
     CommonModule,

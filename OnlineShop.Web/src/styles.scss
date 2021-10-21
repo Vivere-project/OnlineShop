@@ -1,5 +1,14 @@
 @import 'styles/variables';
 
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"), url(./assets/fonts/Montserrat/Montserrat-Regular.ttf) format("truetype");
+}
+
+body {
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+}
+
 ul.items-list {
   list-style-type: none;
   margin-left: auto;

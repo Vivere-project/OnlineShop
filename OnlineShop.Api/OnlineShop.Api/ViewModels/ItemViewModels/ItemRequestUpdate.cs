@@ -26,6 +26,7 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
         [DefaultValue(1)]
         public uint QuantityInStock { get; set; }
         
+        [DefaultValue(null)]
         public uint? Volume { get; set; }
 
         public int? ColorId { get; set; }

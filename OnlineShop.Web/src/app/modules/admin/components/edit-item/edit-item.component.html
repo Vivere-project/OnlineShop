@@ -6,35 +6,7 @@
 </div>
 
 <div class="container">
-  <div class="input-form" [formGroup]="itemForm">
-    <label for="name">Name: </label>
-    <input id="name" type="text" formControlName="name">
-
-    <label for="description">Description: </label>
-    <input id="description" type="text" formControlName="description">
-
-    <label for="volume">Volume: </label>
-    <input id="volume" type="text" formControlName="volume" [defaultValue]="">
-
-    <label for="price">Price: </label>
-    <input id="price" type="text" formControlName="price">
-
-    <label for="minimalBuyQuantity">Minimal buy quantity: </label>
-    <input id="minimalBuyQuantity" type="text" formControlName="minimalBuyQuantity">
-
-    <label for="quantityInStock">Quantity left in stock: </label>
-    <input id="quantityInStock" type="text" formControlName="quantityInStock">
-
-    <label for="colorHex">Color: </label>
-    <input id="colorName" type="text" formControlName="colorName">
-    <input id="colorHex" type="text"
-           formControlName="colorHex"
-           [(colorPicker)]="chosenColor"
-           [style.background]="chosenColor"
-           readonly/>
-
-    <input type="submit" (click)="editItemSubmit()" value="Submit">
-  </div>
+  <app-item-form [item]="item" (onSubmit)="submit($event)"></app-item-form>
 
   <div class="edit-image-container">
     <img [src]="imageToShow" class="edit-image" alt="item image"

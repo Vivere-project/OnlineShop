@@ -3,6 +3,7 @@ import {Item} from "../../../../models/item";
 import {FormControl, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ItemService} from "../../../../services/item.service";
+import {RequestItem} from "../../../../models/request-item";
 
 @Component({
   selector: 'app-add-item',
@@ -25,63 +26,36 @@ export class AddItemComponent implements OnInit {
   isImageLoading: boolean = false
   fileToUpload: File | null = null;
 
-  itemForm = new FormGroup({
-    name: new FormControl('name'),
-    description: new FormControl('description'),
-    volume: new FormControl('volume'),
-    price: new FormControl('price'),
-    minimalBuyQuantity: new FormControl('minimalBuyQuantity'),
-    quantityInStock: new FormControl('quantityInStock'),
-    colorName: new FormControl('colorName')
-  });
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private itemService: ItemService) { }
 
   ngOnInit(): void {
-    this.itemForm.patchValue({
-      name: '',
-      description: '',
-      volume: null,
-      price: '',
-      minimalBuyQuantity: 1,
-      quantityInStock: 1
-    });
 
     this.imageToShow = "../../../assets/image-not-found.png";
   }
 
-  submit(){
-    const colorObj =
-      this.chosenColor != ''
-        ? {
-          name: this.itemForm.get("colorName")?.value,
-          colorHex: this.chosenColor,
-        }
-        : null
-
-    if (colorObj != null && colorObj.name == '') {
-      colorObj.name = colorObj.colorHex
+  parseError(error: any) {
+    if (error?.error?.errors != null) {
+      for (let error_ in error.error.errors){
+        console.log(error)
+        alert(error_)
+      }
     }
+  }
+
+  submit(event: RequestItem){
     this.itemService.createItem(
-      {
-        name: this.itemForm.get("name")?.value,
-        description: this.itemForm.get("description")?.value,
-        volume: +this.itemForm.get('volume')?.value,
-        price: +this.itemForm.get("price")?.value ?? 0,
-        quantityInStock: +this.itemForm.get("quantityInStock")?.value,
-        minimalBuyQuantity: +this.itemForm.get("minimalBuyQuantity")?.value,
-        color: colorObj,
-      },
+      event,
       this.fileToUpload
     ).subscribe(
       _ =>
         this.router.navigate(['admin'])
       ,
       error =>
-        alert(error.error.errors.Name ?? error.error.errors.Price[0])
+        this.parseError(error)
+        // alert(error.error.errors.Name ?? error.error.errors.Price[0])
     );
   }
 

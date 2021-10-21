@@ -2,7 +2,9 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Threading.Tasks;
+using BrunoZell.ModelBinding;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Api.Extensions;
 using OnlineShop.Api.ViewModels.ItemColorViewModels;
 using OnlineShop.Application.Models;
@@ -17,8 +19,6 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
         public string Name { get; set; }
         
         public string Description { get; set; }
-        
-        public IFormFile? Image { get; set; }
 
         [Range(1, 1_000_000)] 
         [DefaultValue(0)]
@@ -33,18 +33,18 @@ namespace OnlineShop.Api.ViewModels.ItemViewModels
         public uint QuantityInStock { get; set; }
         
         [Range(1, 1_000_000)]
+        [DefaultValue(null)]
         public uint? Volume { get; set; }
 
         public int? ColorId { get; set; }
-
         public ItemColorViewModel? Color { get; set; }
         
-        public async Task<ItemDto> ToDtoModel()
+        public async Task<ItemDto> ToDtoModel(IFormFile image)
         {
             return new (
                 name: Name,
                 description: Description,
-                imageFileDetails: await Image.ToFileDetails(),
+                imageFileDetails: await image.ToFileDetails(),
                 price: Price,
                 minimalBuyQuantity: MinimalBuyQuantity,
                 quantityInStock: QuantityInStock,

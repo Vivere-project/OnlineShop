@@ -54,7 +54,7 @@ namespace OnlineShop.Api
             {
                 //::1
                 var ipAddress = context.Connection.RemoteIpAddress?.ToString();
-                if (ipAddress != "::1")
+                if (ipAddress != "::1" && ipAddress != "127.0.0.1")
                 {
                     using var client = new HttpClient();
                     var api = new IpInfoApi("16c5c8c0127d4e", client);

@@ -6,6 +6,7 @@
 
     <ItemGroup>
         <PackageReference Include="IpInfo" Version="1.1.9" />
+        <PackageReference Include="JsonModelBinder" Version="2.1.1" />
         <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-preview.4.21253.1">
           <PrivateAssets>all</PrivateAssets>
