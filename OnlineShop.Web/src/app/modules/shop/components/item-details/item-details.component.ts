@@ -14,16 +14,7 @@ import {CartService} from "../../../../services/cart.service";
 })
 export class ItemDetailsComponent implements OnInit {
 
-  item: Item = {
-    id: 0,
-    name: "loading..",
-    description: "loading..",
-    volume: null,
-    price: 0,
-    minimalBuyQuantity: 0,
-    quantityInStock: 0,
-    color: null,
-  };
+  item: Item = new Item();
   imageToShow: any;
   isImageLoading: boolean = false;
   itemsInCartCount: number = 0
@@ -39,38 +30,25 @@ export class ItemDetailsComponent implements OnInit {
     this.itemService.getItem(itemId).subscribe(item =>
       {
         this.item = item;
-        this.getImageFromService();
+        this.showImage()
       }
     );
-    this.itemsInCartCount = this.cartService.getItemsCount();
   }
 
   addItemToCart() {
     // this.store.dispatch(new AddItem(this.item)).subscribe(_ => alert("Add to cart succeeded"));
     this.cartService.addItem(this.item);
-    this.itemsInCartCount = this.cartService.getItemsCount();
   }
 
-  createImageFromBlob(image: Blob) { // Todo: these two methods repeat in multiple components
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-      this.imageToShow = reader.result;
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
-  }
-
-  getImageFromService() { // Todo: these two methods repeat in multiple components
-    this.isImageLoading = true;
-    this.itemService.getItemPhoto(this.item.id).subscribe(data => {
-      this.createImageFromBlob(data)
-      this.isImageLoading = false;
-    }, error => {
-      this.isImageLoading = false;
-      console.log(error);
-      this.imageToShow = "../../../assets/image-not-found.png";
-    });
+  showImage(){
+    this.itemService.getItemPhoto(this.item.id)
+      .subscribe(image =>
+        {
+          this.imageToShow = image
+        },
+        error => {
+         console.log(error)
+        }
+      )
   }
 }

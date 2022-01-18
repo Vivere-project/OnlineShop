@@ -19,6 +19,12 @@
 			"root": "",
 			"sourceRoot": "src",
 			"prefix": "app",
+			"i18n": {
+				"sourceLocale": "en-US",
+				"locales": {
+					"ro": "src/internationalization/messages.ro.json",
+				}
+			},
 			"architect": {
 				"build": {
 					"builder": "@angular-devkit/build-angular:browser",
@@ -66,6 +72,17 @@
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true
+						},
+						"ro": {
+							"buildOptimizer": false,
+							"optimization": false,
+							"vendorChunk": true,
+							"extractLicenses": false,
+							"sourceMap": true,
+							"namedChunks": true,
+							"localize": [
+								"ro"
+							]
 						}
 					},
 					"defaultConfiguration": "production"
@@ -79,6 +96,10 @@
 						},
 						"development": {
 							"browserTarget": "online-shop:build:development",
+							"proxyConfig": "src/proxy.conf.json"
+						},
+						"ro": {
+							"browserTarget": "online-shop:build:ro",
 							"proxyConfig": "src/proxy.conf.json"
 						}
 					},

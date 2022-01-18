@@ -1,12 +1,46 @@
+<div>
+    <ul class="topnav">
 
-<ul class="topnav">
+        <li class="logo left">
+            <a routerLink="/" class="logo-link">
+                <img src="assets/vivere.JPG">
+            </a>
+        </li>
 
-  <li class="left "><a routerLink="/" class="active" >Store</a></li>
 
+        <li>
+            <button (click)="toggleDarkTheme()" class="right item generic-small-button">
+                <div *ngIf="theme=='dark';else light">
+                    <i class="far fa-lightbulb"></i>
+                </div>
+                <ng-template #light>
+                    <i class="fas fa-lightbulb"></i>
+                </ng-template>
+            </button>
+        </li>
 
+        <li>
+            <select
+                    class="right item generic-small-button"
+                    (change)="changeLanguage($event)"
+                    [(ngModel)]="language"
+            >
+                <option [value]="'en'" i18n>En</option>
+                <option [value]="'ro'" i18n>Ro</option>
+            </select>
+        </li>
 
-  <li class="right"><a routerLink="/contact">Contact</a></li>
-  <li class="right"><a href="#about">About</a></li>
-  <img src="assets/vivere.JPG" class="center" >
-
-</ul>
+        <li>
+            <div class="right item" [class.cart]="itemsInCartCount | async">
+                <div class="cart-counter" *ngIf="itemsInCartCount | async">
+                    <div class="cart-counter-text">
+                        {{itemsInCartCount | async}}
+                    </div>
+                </div>
+                <button class="generic-small-button" routerLink="/cart">
+                    <i class="fa fa-shopping-cart" style="width: 20px; height: 20px"></i>
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>

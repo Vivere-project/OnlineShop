@@ -9,14 +9,11 @@
   <app-item-form [item]="item" (onSubmit)="submit($event)"></app-item-form>
 
   <div class="edit-image-container">
-    <img [src]="imageToShow" class="edit-image" alt="item image"
-         *ngIf="!isImageLoading; else noImageFound">
-    <ng-template #noImageFound>
-      <img src="assets/loading.gif" alt="item image">
-    </ng-template>
+    <app-image-viewer [file]="file" [isLoading]="isLoading" [customHeight]=300 [customWidth]=300>
+    </app-image-viewer>
 
     <div class="form-group">
-      <label for="file" class="edit-image-button" >Edit image</label>
+      <label for="file" class="edit-image-button">Edit image</label>
       <input type="file"
              accept=".jpg, .jpeg, .png, .gif, .bmp"
              id="file"

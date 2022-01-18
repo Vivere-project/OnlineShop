@@ -8,6 +8,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {AddItemComponent} from './components/add-item/add-item.component';
 import {ColorPickerModule} from "ngx-color-picker";
 import { ItemFormComponent } from './components/shared/item-form/item-form.component';
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ItemFormComponent } from './components/shared/item-form/item-form.compo
     CommonModule,
     AdminRoutingModule,
     ReactiveFormsModule,
-    ColorPickerModule
+    ColorPickerModule,
+    SharedModule
   ]
 })
 export class AdminModule {

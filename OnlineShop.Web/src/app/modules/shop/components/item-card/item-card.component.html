@@ -1,10 +1,6 @@
 
 <div class="item-card">
-  <img [src]="imageToShow" alt="item image"
-       *ngIf="!isImageLoading; else noImageFound">
-  <ng-template #noImageFound>
-    <img src="assets/loading.gif" alt="item image">
-  </ng-template>
+  <app-image-viewer [file]="imageToShow" [isLoading]="isImageLoading"></app-image-viewer>
   <div class="item-container">
     <h4>{{item.name}}</h4>
     <p>{{item.price}} MDL </p>

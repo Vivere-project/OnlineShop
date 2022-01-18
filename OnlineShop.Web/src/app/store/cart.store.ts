@@ -20,5 +20,4 @@ export class CartState {
       payload
     ]);
   }
-
 }

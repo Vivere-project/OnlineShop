@@ -3,6 +3,7 @@ import {Item} from "../../../../../models/item";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RequestItem} from "../../../../../models/request-item";
 import { Output, EventEmitter } from '@angular/core';
+import {AlertService} from "../../../../shared/alert/alert.service";
 
 @Component({
   selector: 'app-item-form',
@@ -11,16 +12,7 @@ import { Output, EventEmitter } from '@angular/core';
 })
 export class ItemFormComponent implements OnInit, OnChanges{
 
-  @Input() item: Item = {
-    id: 0,
-    name: "",
-    volume: null,
-    description: "",
-    price: 1,
-    minimalBuyQuantity: 1,
-    quantityInStock: 1000,
-    color: null,
-  };
+  @Input() item: Item = new Item();
   @Output() onSubmit = new EventEmitter<RequestItem>();
 
   chosenColor = '';
@@ -35,19 +27,27 @@ export class ItemFormComponent implements OnInit, OnChanges{
     colorName: new FormControl('colorName')
   });
 
-  constructor() {
+  alertOptions = {
+    autoClose: true,
+    keepAfterRouteChange: false
+  };
+
+  constructor(private alertService: AlertService) {
   }
 
   ngOnInit() {
-    this.patchItemForm();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.patchItemForm();
   }
 
-
   submit() {
+    if(this.itemForm.invalid) {
+        this.alertService.error($localize`The form is not valid`, this.alertOptions);
+      return
+    }
+
     const colorObj =
       this.chosenColor != ''
         ? {

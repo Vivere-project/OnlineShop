@@ -11,34 +11,27 @@ export class ItemCardComponent implements OnInit {
 
   @Input() item!: Item;
   imageToShow: any;
-  isImageLoading: boolean = false;
+  isImageLoading: boolean = true;
 
   constructor(private itemService: ItemService) { }
 
   ngOnInit(): void {
-    this.getImageFromService();
+    this.showImage();
   }
 
-  createImageFromBlob(image: Blob) { // Todo: these two methods repeat in multiple components
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-      this.imageToShow = reader.result;
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
+  showImage() {
+    if (this.item.hasPhoto) {
+      this.itemService.getItemPhoto(this.item.id)
+        .subscribe(image =>
+        {
+          this.imageToShow = image
+        },
+        error => {
+          this.isImageLoading = false;
+          console.log("no image found");
+        })
+    } else {
+      this.isImageLoading = false;
     }
-  }
-
-  getImageFromService() { // Todo: these two methods repeat in multiple components
-    this.isImageLoading = true;
-    this.itemService.getItemPhoto(this.item.id).subscribe(data => {
-      this.createImageFromBlob(data)
-      this.isImageLoading = false;
-    }, error => {
-      this.isImageLoading = false;
-      this.imageToShow = "../../../assets/image-not-found.png";
-      console.log(error);
-    });
   }
 }

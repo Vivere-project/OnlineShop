@@ -6,8 +6,8 @@ import {ItemCardComponent} from "./components/item-card/item-card.component";
 import {ItemDetailsComponent} from "./components/item-details/item-details.component";
 import {CartComponent} from "./components/cart/cart.component";
 import {ShopRoutingModule} from "./shop-routing.module";
+import {HttpClientModule} from "@angular/common/http";
 import {SharedModule} from "../shared/shared.module";
-import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -20,9 +20,8 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
   imports: [
     CommonModule,
     ShopRoutingModule,
-    SharedModule,
     HttpClientModule,
-
+    SharedModule
   ]
 })
 export class ShopModule {

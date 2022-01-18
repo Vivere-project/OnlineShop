@@ -4,7 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-ro": "ng serve --configuration=ro",
+    "start-en": "ng serve --configuration=en",
     "build": "ng build",
+    "extract-i18n": "ng extract-i18n --format=json --output-path=src/internationalization",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

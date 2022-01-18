@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
 import {ItemService} from "../../../../services/item.service";
 import {ActivatedRoute} from "@angular/router";
-import {Item, ItemColor} from "../../../../models/item";
+import {Item} from "../../../../models/item";
 import {RequestItem} from "../../../../models/request-item";
 
 @Component({
@@ -11,19 +10,19 @@ import {RequestItem} from "../../../../models/request-item";
   styleUrls: ['./edit-item.component.scss']
 })
 export class EditItemComponent implements OnInit {
-
+  isLoading = true;
   item: Item = {
     id: 0,
     name: "loading..",
     volume: null,
     description: "loading..",
+    hasPhoto: false,
     price: 0,
     minimalBuyQuantity: 0,
     quantityInStock: 0,
     color: null,
-  };
-  imageToShow: any;
-  isImageLoading: boolean = false
+  }
+  file: any;
   fileToUpload: File | null = null;
 
   constructor(
@@ -35,7 +34,10 @@ export class EditItemComponent implements OnInit {
     this.itemService.getItem(itemId).subscribe(item =>
       {
         this.item = item;
-        this.getImageFromService(this.item);
+        if (this.item.hasPhoto)
+          this.showImage(this.item);
+        else
+          this.isLoading = false;
       }
     );
   }
@@ -44,25 +46,10 @@ export class EditItemComponent implements OnInit {
     this.itemService.updateItem(this.item.id, event).subscribe(_ => alert("Update succeeded"));
   }
 
-  createImageFromBlob(image: Blob) { // Todo: these two methods repeat in multiple components
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
-      this.imageToShow = reader.result;
-    }, false);
-
-    if (image) {
-      reader.readAsDataURL(image);
-    }
-  }
-
-  getImageFromService(item: Item) { // Todo: these two methods repeat in multiple components
-    this.isImageLoading = true;
-    this.itemService.getItemPhoto(item.id).subscribe(data => {
-      this.createImageFromBlob(data)
-      this.isImageLoading = false;
+  showImage(item: Item) {
+    this.itemService.getItemPhoto(item.id).subscribe(itemImage => {
+      this.file = itemImage
     }, error => {
-      this.isImageLoading = false;
-      this.imageToShow = "../../../assets/image-not-found.png";
       console.log(error);
     });
   }
@@ -72,13 +59,11 @@ export class EditItemComponent implements OnInit {
 
     if (!input.files?.length)
       return;
-
-    this.imageToShow = "../../../assets/loading.gif";
     this.fileToUpload = input.files.item(0);
     if (this.fileToUpload == null)
       return;
 
     this.itemService.updateFile(this.item.id, this.fileToUpload)
-      .subscribe(_ => this.createImageFromBlob(this.fileToUpload!));
+      .subscribe(_ => this.showImage(this.item));
   }
 }

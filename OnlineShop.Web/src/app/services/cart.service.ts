@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 import {Item} from "../models/item";
 import {Observable, of} from "rxjs";
+import {LocalStorageService} from "./local-storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
 
-  constructor() { }
+  constructor(private localStorageService: LocalStorageService) { }
 
   addItem(item: Item): void {
-    const itemListString = localStorage.getItem("cart");
+    let itemListString = ""
+    this.localStorageService.subscribe(data => itemListString = data.get('cart') ?? "")
     if (itemListString) {
       const itemList: Item[] = JSON.parse(itemListString);
-      localStorage.setItem('cart', JSON.stringify(itemList.concat(item)));
+      this.localStorageService.addToStorage("cart", JSON.stringify(itemList.concat(item)))
     } else {
-      localStorage.setItem('cart', JSON.stringify([item]));
+      this.localStorageService.addToStorage("cart", JSON.stringify([item]))
     }
   }
 
   getItems(): Item[] {
-    const itemListString = localStorage.getItem("cart");
+    let itemListString = ""
+    this.localStorageService.subscribe(data => itemListString = data.get('cart') ?? "")
     if (itemListString){
       return JSON.parse(itemListString);
     } else {
@@ -28,16 +31,8 @@ export class CartService {
     }
   }
 
-  getItemsCount(): number {
-    let itemListString = localStorage.getItem("cart");
-    if (itemListString){
-      return JSON.parse(itemListString).length;
-    } else {
-      return 0;
-    }
-  }
-
   removeItems(): void{
-    localStorage.setItem('cart', "");
+    this.localStorageService.removeFromStorage('cart')
+    // localStorage.setItem('cart', "");
   }
 }
