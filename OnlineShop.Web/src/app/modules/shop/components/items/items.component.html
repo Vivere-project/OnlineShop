@@ -1,10 +1,9 @@
-<app-toolbar></app-toolbar>
 
-<app-carousel></app-carousel>
+<!--<app-carousel></app-carousel>-->
 
 <ul class="items-list">
   <ng-container *ngFor="let item of items">
-    <li [routerLink]="['/item', item.id]" class="item-li">
+    <li class="item-li">
       <app-item-card [item]="item" ></app-item-card>
     </li>
   </ng-container>

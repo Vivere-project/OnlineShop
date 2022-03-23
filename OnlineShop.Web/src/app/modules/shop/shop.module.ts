@@ -8,6 +8,7 @@ import {CartComponent} from "./components/cart/cart.component";
 import {ShopRoutingModule} from "./shop-routing.module";
 import {HttpClientModule} from "@angular/common/http";
 import {SharedModule} from "../shared/shared.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {SharedModule} from "../shared/shared.module";
     CommonModule,
     ShopRoutingModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ]
 })
 export class ShopModule {

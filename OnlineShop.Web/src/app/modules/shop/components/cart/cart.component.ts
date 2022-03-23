@@ -27,12 +27,12 @@ export class CartComponent implements OnInit {
     // this.store.select(state => state.cart)
     //   .subscribe(res => this.items2$ = res);
 
-    this.items = this.cartService.getItems();
+    // this.cartService.getItems(data => this.items = data.itemsCache);
   }
 
   buyItems() {
     this.orderService.makeOrder(this.items).subscribe();
     this.cartService.removeItems();
-    this.items = this.cartService.getItems();
+    // this.items = this.cartService.getItems();
   }
 }

@@ -1,0 +1,10 @@
+
+<div class="item-card">
+    <app-image-viewer [file]="imageToShow" [isLoading]="isImageLoading" ></app-image-viewer>
+    <div class="item-container">
+        <h5 class="item-name">{{item.name}}</h5>
+        <p class="price-tag">{{item.price}} MDL </p>
+
+        <ng-content></ng-content>
+    </div>
+</div>

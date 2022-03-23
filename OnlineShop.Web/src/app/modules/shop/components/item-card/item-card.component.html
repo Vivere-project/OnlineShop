@@ -1,8 +1,19 @@
 
-<div class="item-card">
-  <app-image-viewer [file]="imageToShow" [isLoading]="isImageLoading"></app-image-viewer>
-  <div class="item-container">
-    <h4>{{item.name}}</h4>
-    <p>{{item.price}} MDL </p>
-  </div>
-</div>
+  <app-base-item-card [item]="item">
+      <span class="bottom-container">
+          <button class="generic-small-button button-left" (click)="dropOne()">
+              <i class="fa fa-arrow-down"></i>
+          </button>
+          <input class="count-input" [ngModel]="count" (ngModelChange)="onCountChange($event)">
+          <button class="generic-small-button button-right" (click)="addOne()">
+              <i class="fa fa-arrow-up"></i>
+          </button>
+          <button class="generic-small-button add-to-cart-button"
+                  [class.button-disabled]="!isCountValid"
+                  [disabled]="!isCountValid">
+              <i class="fa fa-shopping-cart">
+                  <i class="fa fa-plus plus-sign"></i>
+              </i>
+          </button>
+      </span>
+  </app-base-item-card>

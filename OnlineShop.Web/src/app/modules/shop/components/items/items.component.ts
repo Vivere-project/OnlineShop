@@ -1,9 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Item} from "../../../../models/item";
 import {ItemService} from "../../../../services/item.service";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {CartService} from "../../../../services/cart.service";
 
 @Component({
   selector: 'app-store',
