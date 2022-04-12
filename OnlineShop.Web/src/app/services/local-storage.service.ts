@@ -30,7 +30,7 @@ export class LocalStorageService extends Observable<LocalStorage> implements OnD
     this._entireStorage$.next(this._allStorage());
   }
 
-  private _allStorage(): LocalStorage {
+  public _allStorage(): LocalStorage {
     return new LocalStorage(this.localStorage);
   }
 }

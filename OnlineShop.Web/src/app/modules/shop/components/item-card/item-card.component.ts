@@ -2,6 +2,9 @@ import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {Item} from "../../../../models/item";
 import {ItemService} from "../../../../services/item.service";
 import {CartService} from "../../../../services/cart.service";
+import {Observable} from "rxjs";
+import {LocalStorageService} from "../../../../services/local-storage.service";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-item-card',
@@ -11,30 +14,35 @@ import {CartService} from "../../../../services/cart.service";
 export class ItemCardComponent implements OnInit {
 
   @Input() item!: Item;
-  count = 1;
+  countToAdd = 1;
   isCountValid = true;
+  countAdded = new Observable<number>();
 
   constructor(
     private itemService: ItemService,
-    private cartService: CartService) { }
+    private cartService: CartService,
+    private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
+    this.countAdded = this.localStorageService.pipe(map(localStorage => localStorage.getCartItemCount(this.item.id)))
   }
 
   addToCart() {
-    this.cartService.addItem(this.item)
+    this.cartService.addItems(this.item, this.countToAdd);
   }
 
-  addOne() {
-    this.count ++;
+  counterAddOne() {
+    this.countToAdd ++;
   }
 
-  dropOne() {
-    if (this.count > 1)
-      this.count --;
+  counterDropOne() {
+    if (this.countToAdd > 1)
+      this.countToAdd --;
   }
 
   onCountChange(newValue: any) {
-    this.isCountValid = !isNaN(Number(newValue)) && Number(newValue) > 0;
+    this.isCountValid = !isNaN(Number(newValue)) && (Number(newValue) > 0);
+    if (this.isCountValid)
+      this.countToAdd = Number(newValue);
   }
 }

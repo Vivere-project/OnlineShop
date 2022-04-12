@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {Item} from "../models/item";
 import {Observable, of} from "rxjs";
 import {LocalStorageService} from "./local-storage.service";
-import {Cart} from "../models/cart";
+import {Cart, ItemCount} from "../models/cart";
+import {count} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -19,34 +20,43 @@ export class CartService {
       this.localStorageService.addToStorage("cart", JSON.stringify(cart))
     } else {
       this.localStorageService.subscribe(data => {
-        // cart = (JSON.parse(data.get('items') ?? "") as Item[]).map(item => {iditem.id: item})
-        this.localStorageService.addToStorage("cart", JSON.stringify([item]))
+        data.itemsCache.forEach((item_: Item) => {
+          cart[item_.id] = new ItemCount(item_, item_.id == item.id ? 1 : 0)
+        });
       })
+      this.localStorageService.addToStorage("cart", JSON.stringify(cart))
     }
   }
 
   addItems(item: Item, count: number): void {
-    let cart: Cart = []
-    this.localStorageService.subscribe(data => cart = data.cart)
-    if (Object.keys(cart).length != 0) {
-      this.localStorageService.addToStorage("cart", JSON.stringify(item))
+    let cart: Cart = {}
+    this.localStorageService.subscribe(data => cart = data.cart);
+    if (cart[item.id] != undefined) {
+      cart[item.id].count += count;
+      this.localStorageService.addToStorage("cart", JSON.stringify(cart))
     } else {
-      this.localStorageService.addToStorage("cart", JSON.stringify([item]))
+      this.localStorageService.subscribe(data => {
+        data.itemsCache.forEach((item_: Item) => {
+          cart[item_.id] = new ItemCount(item_, item_.id == item.id ? count : 0)
+        });
+      })
+
+      this.localStorageService.addToStorage("cart", JSON.stringify(cart));
     }
   }
 
-  getItems(): Cart {
-    let cart: Cart = []
+  getCart(): Cart {
+    let cart: Cart = {}
     this.localStorageService.subscribe(data => cart = data.cart)
-    if (Object.keys(cart).length != 0){
-      return cart;
-    } else {
-      return [];
-    }
+    return cart;
   }
 
   removeItems(): void{
-    this.localStorageService.removeFromStorage('cart')
-    // localStorage.setItem('cart', "");
+    let cart: Cart = {}
+    this.localStorageService.subscribe(data => cart = data.cart);
+    for (let itemId in cart)
+        cart[itemId].count = 0;
+    
+    this.localStorageService.addToStorage("cart", JSON.stringify(cart));
   }
 }

@@ -1,19 +1,22 @@
 
   <app-base-item-card [item]="item">
       <span class="bottom-container">
-          <button class="generic-small-button button-left" (click)="dropOne()">
+          {{countAdded | async}}
+          <button class="generic-small-button button-left" (click)="counterDropOne()">
               <i class="fa fa-arrow-down"></i>
           </button>
-          <input class="count-input" [ngModel]="count" (ngModelChange)="onCountChange($event)">
-          <button class="generic-small-button button-right" (click)="addOne()">
+          <input class="count-input" [ngModel]="countToAdd" (ngModelChange)="onCountChange($event)">
+          <button class="generic-small-button button-right" (click)="counterAddOne()">
               <i class="fa fa-arrow-up"></i>
           </button>
           <button class="generic-small-button add-to-cart-button"
                   [class.button-disabled]="!isCountValid"
-                  [disabled]="!isCountValid">
+                  [disabled]="!isCountValid"
+                  (click)="addToCart()">
               <i class="fa fa-shopping-cart">
                   <i class="fa fa-plus plus-sign"></i>
               </i>
           </button>
       </span>
   </app-base-item-card>
+

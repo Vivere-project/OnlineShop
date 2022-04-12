@@ -13,16 +13,17 @@ export class ItemService {
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
-  getItems(): Observable<Item[]> {
-    let itemList = []
+  getItems(): Item[] {
+    let itemList : Item[] = []
     this.localStorageService.subscribe(data => itemList = data.itemsCache)
     if (itemList.length != 0) {
-      return this.localStorageService.pipe(map(data => data.itemsCache));
+      this.localStorageService.pipe(map(data => data.itemsCache)).subscribe(il => itemList = il);
     } else {
       this.http.get<Item[]>("api/item").subscribe(data =>
         this.localStorageService.addToStorage("itemsCache", JSON.stringify(data)));
-      return this.localStorageService.pipe(map(data => data.itemsCache));
+      this.localStorageService.pipe(map(data => data.itemsCache)).subscribe(il => itemList = il);
     }
+    return itemList;
   }
 
   getItem(id: number): Observable<Item> {

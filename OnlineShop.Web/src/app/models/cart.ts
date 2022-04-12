@@ -11,4 +11,6 @@ export class ItemCount {
 
 }
 
-export type Cart = {[id: number]: ItemCount};
+export type Cart = {
+  [id: number]: ItemCount
+};

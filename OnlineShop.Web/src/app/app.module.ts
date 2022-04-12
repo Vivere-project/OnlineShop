@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {RouterModule} from "@angular/router";
 import {NgxsModule} from "@ngxs/store";
 import {environment} from "../environments/environment";
@@ -12,12 +12,6 @@ import {AdminModule} from "./modules/admin/admin.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ShopModule} from "./modules/shop/shop.module";
 import {SharedModule} from "./modules/shared/shared.module";
-
-import { registerLocaleData } from '@angular/common';
-import localeRo from '@angular/common/locales/ro';
-
-//If we don't load it like this throws an error it can't find el locale
-registerLocaleData(localeRo);
 
 @NgModule({
   declarations: [
@@ -42,4 +36,7 @@ registerLocaleData(localeRo);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+  }
+}

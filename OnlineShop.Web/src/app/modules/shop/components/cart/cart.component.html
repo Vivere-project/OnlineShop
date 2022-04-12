@@ -1,11 +1,12 @@
 
 <div>
   <ul>
-    <ng-container *ngFor="let item of items">
+    <ng-container *ngFor="let itemCount of itemCounts">
       <li>
-        <p>{{item.name}}</p>
-        <p>{{item.description}}</p>
-        <p>{{item.price}}</p>
+        <p>Name: {{itemCount.item.name}}</p>
+        <p>Description: {{itemCount.item.description}}</p>
+        <p>Price: {{itemCount.item.price}}</p>
+        <p>Count: {{itemCount.count}}</p>
       </li>
     </ng-container>
   </ul>

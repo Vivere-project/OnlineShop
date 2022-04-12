@@ -5,6 +5,7 @@ import {Item} from "../../../../models/item";
 import {CartState} from "../../../../store/cart.store";
 import {CartService} from "../../../../services/cart.service";
 import {OrderService} from "../../../../services/order.service";
+import {Cart, ItemCount} from "../../../../models/cart";
 
 @Component({
   selector: 'app-cart',
@@ -12,10 +13,7 @@ import {OrderService} from "../../../../services/order.service";
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-
-  // @Select(CartState) items$!: Observable<Item[]>;
-
-  items!: Item[];
+  itemCounts: ItemCount[] = [];
 
   constructor(
     private store: Store,
@@ -24,14 +22,11 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.store.select(state => state.cart)
-    //   .subscribe(res => this.items2$ = res);
-
-    // this.cartService.getItems(data => this.items = data.itemsCache);
+    this.itemCounts = Object.values(this.cartService.getCart());
   }
 
   buyItems() {
-    this.orderService.makeOrder(this.items).subscribe();
+    this.orderService.makeOrder(this.itemCounts.map(i => i.item)).subscribe();
     this.cartService.removeItems();
     // this.items = this.cartService.getItems();
   }

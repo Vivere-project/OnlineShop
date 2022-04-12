@@ -3,8 +3,6 @@ import {CartService} from "../../../services/cart.service";
 import {LocalStorageService} from "../../../services/local-storage.service";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {Constants} from "../constants";
-import {toNumbers} from "@angular/compiler-cli/src/diagnostics/typescript_version";
 
 @Component({
   selector: 'app-toolbar',
@@ -26,7 +24,7 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemsInCartCount =
-      this.localStorageService.pipe(map(data => Object.keys(data.cart).length));
+      this.localStorageService.pipe(map(data => data.getCartItemsCount()));
 
     this.localStorageService.subscribe(localStorage => this.theme = localStorage.theme)
     this.isAdmin = this.localStorageService.pipe(map(data =>data.isAdmin))
@@ -34,6 +32,7 @@ export class NavigationBarComponent implements OnInit {
 
   changeLanguage(e:any){
     this.localStorageService.addToStorage('locale', e.target.value);
+    window.open('/', '_self');
   }
 
   toggleDarkTheme(): void {
