@@ -36,7 +36,6 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   addItemToCart() {
-    // this.store.dispatch(new AddItem(this.item)).subscribe(_ => alert("Add to cart succeeded"));
     this.cartService.addItem(this.item);
   }
 

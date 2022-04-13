@@ -1,15 +1,15 @@
-<div>
-    <ul class="topnav">
-
-        <li class="logo left">
-            <a routerLink="/" class="logo-link">
-                <img src="assets/vivere.JPG">
-            </a>
-        </li>
-
-
+<div class="topnav">
+    <ul class="info-bar">
         <li>
-            <button (click)="toggleDarkTheme()" class="right item generic-small-button">
+            <span class="left info-item">
+                <i class="fa fa-phone" style="color: green"></i> +373 68161070 | +40 759789124
+            </span>
+            <span class="left info-item">
+                <i class="fa fa-envelope" style="color: green"></i> valeriu3333@gmail.com
+            </span>
+        </li>
+        <li>
+            <button (click)="toggleDarkTheme()" class="right info-item generic-small-button">
                 <div *ngIf="theme=='dark';else light">
                     <i class="far fa-lightbulb"></i>
                 </div>
@@ -21,7 +21,7 @@
 
         <li>
             <select
-                    class="right item generic-small-button"
+                    class="right info-item generic-small-button"
                     (change)="changeLanguage($event)"
                     [(ngModel)]="language"
             >
@@ -29,15 +29,42 @@
                 <option [value]="'ro'" i18n>Ro</option>
             </select>
         </li>
+    </ul>
+
+    <ul class="nav-bar">
+
+        <li class="logo left">
+            <a routerLink="/" class="logo-link">
+                <img src="assets/vivere.JPG">
+            </a>
+        </li>
 
         <li>
-            <div class="right item" [class.cart]="itemsInCartCount | async">
+            <div class="left nav-item search-bar-item">
+                <input class="search-bar" [(ngModel)]="searchText" i18n-placeholder placeholder="Search">
+            </div>
+        </li>
+
+        <li *ngIf="isAdmin | async">
+            <button class="right nav-item generic-small-button" [routerLink]="['/admin']">
+                <i class="fa fa-cog"></i>
+            </button>
+        </li>
+
+        <li>
+            <button class="right nav-item generic-small-button">
+                <i class="fa fa-user"></i>
+            </button>
+        </li>
+
+        <li>
+            <div class="right nav-item" [class.cart]="itemsInCartCount | async">
                 <div class="cart-counter" *ngIf="itemsInCartCount | async">
                     <div class="cart-counter-text">
                         {{itemsInCartCount | async}}
                     </div>
                 </div>
-                <button class="generic-small-button" routerLink="/cart">
+                <button class="generic-small-button" style="min-width: 45px; min-height: 45px;" routerLink="/cart">
                     <i class="fa fa-shopping-cart" style="width: 20px; height: 20px"></i>
                 </button>
             </div>

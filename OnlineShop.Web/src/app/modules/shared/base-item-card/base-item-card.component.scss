@@ -1,0 +1,24 @@
+@import "src/styles/variables";
+
+.item-card {
+  width: 150px;
+  height: 242px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  margin: 10px;
+  background-color: white;
+  //color: $base-color-light;
+}
+
+div.item-container {
+  height: 38%;
+}
+
+.price-tag {
+  color: $price-text-color;
+  margin-bottom: 1px;
+}
+
+.item-name {
+  margin-bottom: 0;
+}

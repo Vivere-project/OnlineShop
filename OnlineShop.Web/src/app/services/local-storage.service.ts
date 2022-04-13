@@ -1,43 +1,36 @@
 import {Inject, Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {LOCAL_STORAGE} from "./tokens";
+import {LocalStorage} from "../models/localStorage";
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocalStorageService extends Observable<Map<string, string>> implements OnDestroy {
-  private readonly _entireStorage$:BehaviorSubject<Map<string, string>>
+export class LocalStorageService extends Observable<LocalStorage> implements OnDestroy {
+  private readonly _entireStorage$:BehaviorSubject<LocalStorage>
     = new BehaviorSubject(this._allStorage());
 
-
-  constructor(@Inject(LOCAL_STORAGE) private _localStorage: Storage) {
+  constructor(@Inject(LOCAL_STORAGE) private localStorage: Storage) {
     super( subscriber => {
       this._entireStorage$.subscribe(subscriber);
     })
   }
 
-
-  ngOnDestroy(){
+  ngOnDestroy() {
     this._entireStorage$.complete();
   }
 
-  addToStorage(itName:string, itValue:string){
-    itName && itValue &&  this._localStorage.setItem(itName , itValue);
+  addToStorage(itName:string, itValue:string) {
+    itName && itValue &&  this.localStorage.setItem(itName , itValue);
     this._entireStorage$.next(this._allStorage());
   }
 
-  removeFromStorage(itName:string){
-    itName && this._localStorage.removeItem(itName);
+  removeFromStorage(itName:string) {
+    itName && this.localStorage.removeItem(itName);
     this._entireStorage$.next(this._allStorage());
   }
 
-  private  _allStorage():Map<string, string> {
-    let values = new Map(),
-      keys = Object.keys(this._localStorage),
-      i = keys.length;
-    while ( i-- ) {
-      values.set( keys[i], this._localStorage.getItem(keys[i]) );
-    }
-    return values;
+  public _allStorage(): LocalStorage {
+    return new LocalStorage(this.localStorage);
   }
 }
