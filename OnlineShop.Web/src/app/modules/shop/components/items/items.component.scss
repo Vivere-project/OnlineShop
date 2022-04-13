@@ -4,3 +4,9 @@
 @media screen and (max-width: 600px) {
   li {float: none;}
 }
+
+@media screen and (max-width: 780px) {
+  .items-list {
+    width: 95% !important;
+  }
+}

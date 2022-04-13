@@ -8,6 +8,7 @@ import { CartBadgeComponent } from './cart-badge/cart-badge.component';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { AlertComponent } from './alert/alert.component';
 import {FormsModule} from "@angular/forms";
+import { BaseItemCardComponent } from './base-item-card/base-item-card.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {FormsModule} from "@angular/forms";
     CartBadgeComponent,
     ImageViewerComponent,
     AlertComponent,
+    BaseItemCardComponent,
     // NgbModule
   ],
   imports: [
@@ -30,7 +32,8 @@ import {FormsModule} from "@angular/forms";
     CarouselComponent,
     CartBadgeComponent,
     ImageViewerComponent,
-    AlertComponent
+    AlertComponent,
+    BaseItemCardComponent
   ]
 })
 export class SharedModule { }

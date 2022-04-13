@@ -18,7 +18,7 @@ export class ItemsComponent implements OnInit {
   }
 
   refreshItems() {
-    this.itemService.getItems().subscribe(items => this.items = items);
+    this.items = this.itemService.getItems();
   }
 
 }

@@ -11,10 +11,11 @@ import {map} from "rxjs/operators";
 })
 export class NavigationBarComponent implements OnInit {
 
+  searchText = "";
   language = localStorage.getItem('locale') || 'en';
-  theme = localStorage.getItem('theme') || 'light';
+  theme = 'light';
   itemsInCartCount = new Observable<number>()
-
+  isAdmin = new Observable<boolean>()
 
   constructor(
     private cartService: CartService,
@@ -22,26 +23,22 @@ export class NavigationBarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.itemsInCartCount = this.cartService.getItemsCount();
     this.itemsInCartCount =
-      this.localStorageService.pipe(map(data =>
-    {
-      console.log(data)
-      if (data.get("cart"))
-        return JSON.parse(data.get("cart")!).length ?? 0;
-    }));
+      this.localStorageService.pipe(map(data => data.getCartItemsCount()));
+
+    this.localStorageService.subscribe(localStorage => this.theme = localStorage.theme)
+    this.isAdmin = this.localStorageService.pipe(map(data =>data.isAdmin))
   }
 
   changeLanguage(e:any){
-    localStorage.setItem('locale', e.target.value);
+    this.localStorageService.addToStorage('locale', e.target.value);
     window.open('/', '_self');
   }
 
   toggleDarkTheme(): void {
     if (this.theme != 'dark')
-      localStorage.setItem('theme', 'dark');
+      this.localStorageService.addToStorage('theme', 'dark');
     else
-      localStorage.setItem('theme', 'light');
-    window.open('/', '_self');
+      this.localStorageService.addToStorage('theme', 'light');
   }
 }

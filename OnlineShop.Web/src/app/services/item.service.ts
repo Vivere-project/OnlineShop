@@ -3,20 +3,33 @@ import {Item} from "../models/item";
 import {Observable, of} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {RequestItem} from "../models/request-item";
+import {LocalStorageService} from "./local-storage.service";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService) { }
 
-  getItems(): Observable<Item[]> {
-
-    return this.http.get<Item[]>("api/item");
+  getItems(): Item[] {
+    let itemList : Item[] = []
+    this.localStorageService.subscribe(data => itemList = data.itemsCache)
+    if (itemList.length != 0) {
+      this.localStorageService.pipe(map(data => data.itemsCache)).subscribe(il => itemList = il);
+    } else {
+      this.http.get<Item[]>("api/item").subscribe(data =>
+        this.localStorageService.addToStorage("itemsCache", JSON.stringify(data)));
+      this.localStorageService.pipe(map(data => data.itemsCache)).subscribe(il => itemList = il);
+    }
+    return itemList;
   }
 
   getItem(id: number): Observable<Item> {
+    let item
+    this.localStorageService.subscribe(data => item = data.itemsCache.find(item => item.id === id))
+
     return this.http.get<Item>(`api/item/${id}`);
   }
 

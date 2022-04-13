@@ -1,6 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {Item} from "../../../../models/item";
 import {ItemService} from "../../../../services/item.service";
+import {CartService} from "../../../../services/cart.service";
+import {Observable} from "rxjs";
+import {LocalStorageService} from "../../../../services/local-storage.service";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-item-card',
@@ -10,28 +14,35 @@ import {ItemService} from "../../../../services/item.service";
 export class ItemCardComponent implements OnInit {
 
   @Input() item!: Item;
-  imageToShow: any;
-  isImageLoading: boolean = true;
+  countToAdd = 1;
+  isCountValid = true;
+  countAdded = new Observable<number>();
 
-  constructor(private itemService: ItemService) { }
+  constructor(
+    private itemService: ItemService,
+    private cartService: CartService,
+    private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
-    this.showImage();
+    this.countAdded = this.localStorageService.pipe(map(localStorage => localStorage.getCartItemCount(this.item.id)))
   }
 
-  showImage() {
-    if (this.item.hasPhoto) {
-      this.itemService.getItemPhoto(this.item.id)
-        .subscribe(image =>
-        {
-          this.imageToShow = image
-        },
-        error => {
-          this.isImageLoading = false;
-          console.log("no image found");
-        })
-    } else {
-      this.isImageLoading = false;
-    }
+  addToCart() {
+    this.cartService.addItems(this.item, this.countToAdd);
+  }
+
+  counterAddOne() {
+    this.countToAdd ++;
+  }
+
+  counterDropOne() {
+    if (this.countToAdd > 1)
+      this.countToAdd --;
+  }
+
+  onCountChange(newValue: any) {
+    this.isCountValid = !isNaN(Number(newValue)) && (Number(newValue) > 0);
+    if (this.isCountValid)
+      this.countToAdd = Number(newValue);
   }
 }
