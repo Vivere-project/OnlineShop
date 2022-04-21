@@ -72,7 +72,7 @@ namespace OnlineShop.Api
             app.UseCors(
                 options => options.WithOrigins("*").AllowAnyMethod()
             );
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
