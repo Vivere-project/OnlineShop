@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -11,7 +10,6 @@ using Microsoft.OpenApi.Models;
 using OnlineShop.Application;
 using OnlineShop.Application.Services;
 using OnlineShop.Application.Services.Interfaces;
-using OnlineShop.Domain;
 using OnlineShop.Persistence;
 
 namespace OnlineShop.Api
