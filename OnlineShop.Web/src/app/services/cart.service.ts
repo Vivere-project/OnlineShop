@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Item} from "../models/item";
-import {Observable, of} from "rxjs";
 import {LocalStorageService} from "./local-storage.service";
 import {Cart, ItemCount} from "../models/cart";
-import {count} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,0 @@
-{
-  "/api": {
-    "target": "https://vivere-dev.azurewebsites.net",
-    "secure": false
-  }
-}

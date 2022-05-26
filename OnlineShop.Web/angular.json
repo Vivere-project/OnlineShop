@@ -92,15 +92,12 @@
 					"configurations": {
 						"production": {
 							"browserTarget": "online-shop:build:production",
-							"proxyConfig": "src/proxy.conf.json"
 						},
 						"development": {
 							"browserTarget": "online-shop:build:development",
-							"proxyConfig": "src/proxy.conf.json"
 						},
 						"ro": {
 							"browserTarget": "online-shop:build:ro",
-							"proxyConfig": "src/proxy.conf.json"
 						}
 					},
 					"defaultConfiguration": "development"

@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: "https://vivere-dev.azurewebsites.net/api",
+  imageBaseUrl: "https://vivereimages.blob.core.windows.net/images/Screenshot 2021-07-27 at 06.57.58.png"
 };
 
 /*
