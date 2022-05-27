@@ -45,9 +45,15 @@
             </div>
         </li>
 
-        <li *ngIf="isAdmin | async">
+        <li *ngIf="!idProd || (isAdmin | async)">
             <button class="right nav-item generic-small-button" [routerLink]="['/admin']">
                 <i class="fa fa-cog"></i>
+            </button>
+        </li>
+
+        <li *ngIf="!idProd">
+            <button class="right nav-item generic-small-button">
+                <i class="fa fa-refresh"></i>
             </button>
         </li>
 

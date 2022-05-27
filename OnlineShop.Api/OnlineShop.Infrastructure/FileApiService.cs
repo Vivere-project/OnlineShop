@@ -1,17 +1,13 @@
-using System;
-using System.IO;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using OnlineShop.Application.Models;
 using OnlineShop.Application.Services.Interfaces;
 
-namespace OnlineShop.Application.Services
+namespace OnlineShop.Infrastructure
 {
-    public class RemoteFileService: IFileService
+    public class FileApiService: IFileService
     {
         private readonly HttpClient httpClient = new ();
-        public RemoteFileService()
+        public FileApiService()
         {
             httpClient.BaseAddress = new Uri("http://161.35.208.211/api/file/");
         }

@@ -43,7 +43,7 @@ namespace OnlineShop.Api.Controllers
             return Ok(dbItem.ToResponseModel());
         }
 
-        [HttpGet("image/{itemId:int}")]
+        [HttpGet("{itemId:int}/image")]
         public async Task<IActionResult> DownloadImageByItemId(int itemId)
         {
             var imageStream = await itemService.GetImageByItemId(itemId);
@@ -78,7 +78,7 @@ namespace OnlineShop.Api.Controllers
             return Ok(updatedDbItem.ToResponseModel());
         }
 
-        [HttpPost("image/{id:int}")]
+        [HttpPost("{id:int}/image")]
         public async Task<ActionResult> UpdateFile([FromRoute] int id, [FromForm] IFormFile image)
         {
             await itemService.UpdateImage(id, await image.ToFileDetails());

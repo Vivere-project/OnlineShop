@@ -25,7 +25,7 @@ namespace OnlineShop.Application.Services
                     FileMode.Open,
                     FileAccess.Read,
                     FileShare.Read,
-                    4096 /*default*/,
+                    4096, // default
                     true);
             }
             catch

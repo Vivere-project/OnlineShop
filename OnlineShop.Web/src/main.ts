@@ -22,7 +22,6 @@ fetch('/assets/translations/' + locale + '.json')
     return response.json();
   })
   .then((json) => {
-    // Load translation
     loadTranslations(json.translations);
     $localize.locale = json.locale;
 
@@ -30,7 +29,7 @@ fetch('/assets/translations/' + locale + '.json')
     platformBrowserDynamic()
       .bootstrapModule(AppModule)
       .then(ref => {
-        const localStorageService = ref.injector.get(LocalStorageService);
+        const localStorageService = ref.injector.get(LocalStorageService); //get instance of LocalStorageService
         localStorageService.subscribe(localStorage => {
           if (localStorage.theme == "dark")
             document.body.classList.add('dark-theme');
@@ -40,7 +39,4 @@ fetch('/assets/translations/' + locale + '.json')
       })
       .catch((err) => console.error(err));
   })
-  .catch(error => {
-    console.log(error)
-    //Err
-  });
+  .catch(error => console.log(error));

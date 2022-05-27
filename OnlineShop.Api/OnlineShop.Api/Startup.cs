@@ -10,6 +10,7 @@ using Microsoft.OpenApi.Models;
 using OnlineShop.Application;
 using OnlineShop.Application.Services;
 using OnlineShop.Application.Services.Interfaces;
+using OnlineShop.Infrastructure;
 using OnlineShop.Persistence;
 
 namespace OnlineShop.Api
@@ -34,14 +35,15 @@ namespace OnlineShop.Api
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "OnlineShop.Api", Version = "v1"});
             });
 
-            services.ConfigureDbContext(Configuration.GetConnectionString("OnlineShop"));
+            services.ConfigureDbContext(Configuration.GetConnectionString("OnlineShopDatabase"));
+            services.ConfigureAzureClients(Configuration.GetConnectionString("Azure"));
             
-            // Add strongly typed AppSettings
+            // TODO: Add strongly typed AppSettings
             var appSettingsSection = Configuration.GetSection("AppSettings");
 
             if (Convert.ToBoolean(Configuration["UseLocalImages"]))
             {
-                var imagesPath = Path.Combine(Configuration["ImagesPath"], "Images");
+                var imagesPath = Path.Combine(Configuration["LocalImagesPath"], "Images");
                 if (!Directory.Exists(imagesPath))
                     Directory.CreateDirectory(imagesPath);
                 services.AddScoped<IFileService>(sp => 
@@ -49,7 +51,7 @@ namespace OnlineShop.Api
             }
             else
             {
-                services.AddScoped<IFileService, RemoteFileService>();
+                services.AddScoped<IFileService, AzureFileService>();
             }
 
             services.AddScoped<ItemService>();

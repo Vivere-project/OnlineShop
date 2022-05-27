@@ -3,6 +3,7 @@ import {CartService} from "../../../services/cart.service";
 import {LocalStorageService} from "../../../services/local-storage.service";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-toolbar',
@@ -11,6 +12,7 @@ import {map} from "rxjs/operators";
 })
 export class NavigationBarComponent implements OnInit {
 
+  idProd = true;
   searchText = "";
   language = localStorage.getItem('locale') || 'en';
   theme = 'light';
@@ -20,7 +22,9 @@ export class NavigationBarComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private localStorageService: LocalStorageService
-  ) { }
+  ) {
+    this.idProd = environment.production;
+  }
 
   ngOnInit(): void {
     this.itemsInCartCount =

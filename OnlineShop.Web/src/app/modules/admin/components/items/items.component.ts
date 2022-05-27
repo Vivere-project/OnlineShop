@@ -13,12 +13,12 @@ export class ItemsComponent implements OnInit {
 
   constructor(private itemService: ItemService) { }
 
-  ngOnInit(): void {
-    this.refreshItems()
+  async ngOnInit(): Promise<void> {
+    await this.refreshItems()
   }
 
-  refreshItems() {
-    this.items = this.itemService.getItems();
+  async refreshItems() {
+    this.items = await this.itemService.refreshCache();
   }
 
 }

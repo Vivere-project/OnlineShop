@@ -20,6 +20,7 @@
     <ItemGroup>
       <ProjectReference Include="..\OnlineShop.Application\OnlineShop.Application.csproj" />
       <ProjectReference Include="..\OnlineShop.Domain\OnlineShop.Domain.csproj" />
+      <ProjectReference Include="..\OnlineShop.Infrastructure\OnlineShop.Infrastructure.csproj" />
       <ProjectReference Include="..\OnlineShop.Persistence\OnlineShop.Persistence.csproj" />
       <ProjectReference Include="..\OnlineShop.TelegramBot\OnlineShop.TelegramBot.csproj" />
     </ItemGroup>

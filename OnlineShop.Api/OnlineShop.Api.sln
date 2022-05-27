@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Persistence", "O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.TelegramBot", "OnlineShop.TelegramBot\OnlineShop.TelegramBot.csproj", "{0C8B0310-1129-4486-ACAD-14CB76D5BDBC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Infrastructure", "OnlineShop.Infrastructure\OnlineShop.Infrastructure.csproj", "{E5CD7B72-2532-4E71-8459-612385D40F05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{0C8B0310-1129-4486-ACAD-14CB76D5BDBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C8B0310-1129-4486-ACAD-14CB76D5BDBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C8B0310-1129-4486-ACAD-14CB76D5BDBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5CD7B72-2532-4E71-8459-612385D40F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5CD7B72-2532-4E71-8459-612385D40F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5CD7B72-2532-4E71-8459-612385D40F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5CD7B72-2532-4E71-8459-612385D40F05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

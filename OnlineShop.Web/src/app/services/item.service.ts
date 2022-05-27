@@ -4,8 +4,8 @@ import {Observable, of} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {RequestItem} from "../models/request-item";
 import {LocalStorageService} from "./local-storage.service";
-import {map} from "rxjs/operators";
 import {environment} from "../../environments/environment";
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +13,22 @@ import {environment} from "../../environments/environment";
 export class ItemService {
 
   baseUrl = environment.baseUrl
-  imageBaseUrl = environment.imageBaseUrl
 
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService) {
   }
 
-  getItems(): Item[] {
-    let itemList : Item[] = []
-    this.localStorageService.subscribe(data => itemList = data.itemsCache)
-    if (itemList.length != 0) {
-      this.localStorageService.pipe(map(data => data.itemsCache)).subscribe(il => itemList = il);
-    } else {
-      this.http.get<Item[]>(`${this.baseUrl}/item`).subscribe(data =>
-        this.localStorageService.addToStorage("itemsCache", JSON.stringify(data)));
-      this.localStorageService.pipe(map(data => data.itemsCache)).subscribe(il => itemList = il);
+  async refreshCache(): Promise<Item[]> { // TODO: Make the cache temporary
+    this.localStorageService.removeFromStorage("itemsCache");
+    return this.getItems();
+  }
+
+  async getItems(): Promise<Item[]> {
+    let itemList = this.localStorageService._allStorage().itemsCache;
+    if (itemList.length == 0) {
+      itemList = await this.http.get<Item[]>(`${this.baseUrl}/item`).toPromise();
+      this.localStorageService.addToStorage("itemsCache", JSON.stringify(itemList));
     }
     return itemList;
   }
@@ -41,7 +41,7 @@ export class ItemService {
   }
 
   getItemPhoto(id: number): Observable<Blob> {
-    return this.http.get(`${this.imageBaseUrl}`,  { responseType: 'blob' });
+    return this.http.get(`${this.baseUrl}/item/${id}/image`,  { responseType: 'blob' });
   }
 
   /// Adds every property of item separately!
