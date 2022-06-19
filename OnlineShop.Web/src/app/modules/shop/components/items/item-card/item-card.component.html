@@ -1,7 +1,6 @@
 
   <app-base-item-card [item]="item">
       <span class="bottom-container">
-          {{countAdded | async}}
           <button class="generic-small-button button-left" (click)="counterDropOne()">
               <i class="fa fa-arrow-down"></i>
           </button>
@@ -18,5 +17,10 @@
               </i>
           </button>
       </span>
+      <div class="cart-counter" *ngIf="(countAdded | async)!=0">
+          <div class="item-cart-counter-text">
+              {{countAdded | async}}
+          </div>
+      </div>
   </app-base-item-card>
 

@@ -3,8 +3,12 @@
     <app-image-viewer [file]="imageToShow" [isLoading]="isImageLoading" ></app-image-viewer>
     <div class="item-container">
         <h5 class="item-name">{{item.name}}</h5>
-        <p class="price-tag">{{item.price}} MDL </p>
-
+        <ul class="colors">
+<!--            <div *ngFor=""></div>-->
+            <li>
+                <app-color-circle [color]="item.color?.colorHex ?? ''"></app-color-circle>
+            </li>
+        </ul>
         <ng-content></ng-content>
     </div>
 </div>

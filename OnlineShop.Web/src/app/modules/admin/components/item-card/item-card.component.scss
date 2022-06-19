@@ -15,21 +15,19 @@ p {
   background-position:center;
 }
 
-.cart-icon {
+.action-icon {
   left: 100%;
   top: 80%;
-  width: 45px;
-  height: 45px;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px;
-  box-shadow: 0 0 10px gray;
-  margin-left: 10px;
+  width: 37px;
+  height: 37px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  margin-right: 10px;
   float:right;
 }
 
-.cart-icon-text {
-  /*display: block;*/
+.action-icon-text {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

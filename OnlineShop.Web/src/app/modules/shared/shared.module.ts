@@ -9,6 +9,8 @@ import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { AlertComponent } from './alert/alert.component';
 import {FormsModule} from "@angular/forms";
 import { BaseItemCardComponent } from './base-item-card/base-item-card.component';
+import { ColorCircleComponent } from './color-circle/color-circle.component';
+import { CountInputComponent } from './count-input/count-input.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { BaseItemCardComponent } from './base-item-card/base-item-card.component
     ImageViewerComponent,
     AlertComponent,
     BaseItemCardComponent,
+    ColorCircleComponent,
+    CountInputComponent,
     // NgbModule
   ],
   imports: [

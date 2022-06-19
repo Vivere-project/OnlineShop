@@ -1,16 +1,13 @@
 <div class="form-container">
-    <app-item-form (onSubmit)="submit($event)" [item]="item"></app-item-form>
-
-    <div class="edit-image-container">
-        <app-image-viewer [file]="fileToUpload" [isLoading]="isImageLoading">
-        </app-image-viewer>
-
-        <div class="form-group">
-            <label for="file" class="edit-image-button" i18n>Edit image</label>
-            <input type="file"
-                   accept=".jpg, .jpeg, .png, .gif, .bmp"
-                   id="file"
-                   (change)="handleFileInput($event)">
-        </div>
+    <div>
+        <app-item-form (onSubmit)="submit($event)" [item]="item"></app-item-form>
+    </div>
+    <div class="edit-image-container col-s-12">
+        <app-image-viewer [file]="fileToUpload" [isLoading]="isImageLoading"></app-image-viewer>
+        <label for="file" class="edit-image-button" i18n>Edit image</label>
+        <input type="file"
+               accept=".jpg, .jpeg, .png, .gif, .bmp"
+               id="file"
+               (change)="handleFileInput($event)">
     </div>
 </div>

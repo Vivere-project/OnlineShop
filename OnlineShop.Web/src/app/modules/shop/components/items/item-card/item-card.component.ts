@@ -1,9 +1,9 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
-import {Item} from "../../../../models/item";
-import {ItemService} from "../../../../services/item.service";
-import {CartService} from "../../../../services/cart.service";
+import {Item} from "../../../../../models/item";
+import {ItemService} from "../../../../../services/item.service";
+import {CartService} from "../../../../../services/cart.service";
 import {Observable} from "rxjs";
-import {LocalStorageService} from "../../../../services/local-storage.service";
+import {LocalStorageService} from "../../../../../services/local-storage.service";
 import {map} from "rxjs/operators";
 
 @Component({

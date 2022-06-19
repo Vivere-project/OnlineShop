@@ -22,7 +22,7 @@ export class CartComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.itemCounts = Object.values(this.cartService.getCart());
+    this.itemCounts = Object.values(this.cartService.getCart()).filter(i => i.count !== 0);
   }
 
   buyItems() {

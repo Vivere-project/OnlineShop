@@ -1,18 +1,10 @@
 @import '/src/styles/variables';
 
-.bottom-container {
-
-}
-
 .add-to-cart-button {
   min-width: 36px;
   min-height: 36px;
   padding: 0;
   margin-left: 10px;
-}
-
-.plus-sign {
-
 }
 
 .count-input {
@@ -34,4 +26,22 @@
 .button-left {
   height: 36px;
   border-radius: 10px 0 0 10px;
+}
+
+.item-cart-counter-text {
+  position: relative;
+  text-align:center;
+  color: white;
+}
+
+.cart-counter {
+  position: relative;
+  background-color: $color-red;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  bottom: 245px;
+  left: 135px;
 }

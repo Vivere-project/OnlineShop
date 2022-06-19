@@ -1,12 +1,11 @@
-
-<div>
+<p>Your Order:</p>
+<div class="cart-item-list">
   <ul>
     <ng-container *ngFor="let itemCount of itemCounts">
       <li>
-        <p>Name: {{itemCount.item.name}}</p>
-        <p>Description: {{itemCount.item.description}}</p>
-        <p>Price: {{itemCount.item.price}}</p>
-        <p>Count: {{itemCount.count}}</p>
+        <div *ngIf="itemCount.count != 0">
+          <app-cart-item [item]="itemCount.item" [count]="itemCount.count"></app-cart-item>
+        </div>
       </li>
     </ng-container>
   </ul>

@@ -1,12 +1,12 @@
 <app-base-item-card [item]="item">
-    <div  class="cart-icon delete" (click)="deleteItem()">
-      <div class="cart-icon-text">
+    <div  class="action-icon delete" (click)="deleteItem()">
+      <div class="action-icon-text">
         <i class="fas fa-trash"></i>
       </div>
     </div>
 
-    <a class="cart-icon edit" [routerLink]="['/edit-item', item.id]">
-      <div class="cart-icon-text edit-icon">
+    <a class="action-icon edit" [routerLink]="['/edit-item', item.id]">
+      <div class="action-icon-text edit-icon">
         <i class="fas fa-edit"></i>
       </div>
     </a>

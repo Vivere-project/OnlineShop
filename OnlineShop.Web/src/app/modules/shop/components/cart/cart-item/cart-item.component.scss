@@ -1,0 +1,44 @@
+@import '/src/styles/variables';
+
+
+.cart-item {
+  background-color: white;
+  display: flex;
+  justify-content: flex-start;
+  padding: 16px;
+  margin: 16px;
+}
+
+.count-input {
+  width: 36px;
+  height: 36px;
+  border-color: $base-color-green;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-style: solid;
+}
+
+.button-right {
+  height: 36px;
+  border-radius: 0 10px 10px 0;
+}
+
+.button-left {
+  height: 36px;
+  border-radius: 10px 0 0 10px;
+}
+
+.item-cart-counter-text {
+  position: relative;
+  text-align:center;
+  color: white;
+}
+
+.cart-item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 16px;
+}

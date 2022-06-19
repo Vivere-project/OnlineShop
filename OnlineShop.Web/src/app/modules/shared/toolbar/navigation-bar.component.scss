@@ -18,7 +18,7 @@
   list-style-type: none;
   margin: 0;
   padding: 0 24px 0 0;
-  background-color: $base-color-brown;
+  background-color: $base-color-dark-brown;
   height: 64px;
   overflow: auto;
 }
@@ -67,7 +67,7 @@ select {
   border-radius: 20px;
   height: 40px;
   width: 100%;
-  background: #575757;
+  background: $base-color-brown;
   color: white;
   padding-left: 12px;
 }
@@ -79,12 +79,12 @@ select {
 
 .cart-counter {
   position: relative;
-  background-color: #ba3e3e;
+  background-color: $color-red;
   width: 20px;
   height: 20px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
   bottom: -15px;
   left: 30px;
 }
