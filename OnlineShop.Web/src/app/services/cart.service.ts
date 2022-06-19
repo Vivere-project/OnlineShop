@@ -8,37 +8,24 @@ import {Cart, ItemCount} from "../models/cart";
 })
 export class CartService {
 
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(
+    private localStorageService: LocalStorageService) { }
 
   addItem(item: Item): void {
-    let cart: Cart = []
-    this.localStorageService.subscribe(data => cart = data.cart);
-    if (cart[item.id]) {
-      cart[item.id].count += 1;
-      this.localStorageService.addToStorage("cart", JSON.stringify(cart))
-    } else {
-      this.localStorageService.subscribe(data => {
-        data.itemsCache.forEach((item_: Item) => {
-          cart[item_.id] = new ItemCount(item_, item_.id == item.id ? 1 : 0)
-        });
-      })
-      this.localStorageService.addToStorage("cart", JSON.stringify(cart))
-    }
+    this.addItems(item, 1);
   }
 
   addItems(item: Item, count: number): void {
-    let cart: Cart = {}
-    this.localStorageService.subscribe(data => cart = data.cart);
+    let cart = this.localStorageService._allStorage().cart;
+
     if (cart[item.id] != undefined) {
       cart[item.id].count += count;
       this.localStorageService.addToStorage("cart", JSON.stringify(cart))
     } else {
-      this.localStorageService.subscribe(data => {
-        data.itemsCache.forEach((item_: Item) => {
+      let items = this.localStorageService._allStorage().itemsCache;
+      items.forEach((item_: Item) => {
           cart[item_.id] = new ItemCount(item_, item_.id == item.id ? count : 0)
         });
-      })
-
       this.localStorageService.addToStorage("cart", JSON.stringify(cart));
     }
   }
