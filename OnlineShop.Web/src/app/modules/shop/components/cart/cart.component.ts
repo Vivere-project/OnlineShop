@@ -6,6 +6,7 @@ import {CartState} from "../../../../store/cart.store";
 import {CartService} from "../../../../services/cart.service";
 import {OrderService} from "../../../../services/order.service";
 import {Cart, ItemCount} from "../../../../models/cart";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-cart',
@@ -14,6 +15,12 @@ import {Cart, ItemCount} from "../../../../models/cart";
 })
 export class CartComponent implements OnInit {
   itemCounts: ItemCount[] = [];
+
+  customerForm = new FormGroup({
+    fullName: new FormControl('fullName', Validators.required),
+    phone: new FormControl('phone'),
+    email: new FormControl('email'),
+  });
 
   constructor(
     private store: Store,

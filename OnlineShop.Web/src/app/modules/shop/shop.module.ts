@@ -8,7 +8,7 @@ import {CartComponent} from "./components/cart/cart.component";
 import {ShopRoutingModule} from "./shop-routing.module";
 import {HttpClientModule} from "@angular/common/http";
 import {SharedModule} from "../shared/shared.module";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CartItemComponent} from "./components/cart/cart-item/cart-item.component";
 
 @NgModule({
@@ -25,7 +25,8 @@ import {CartItemComponent} from "./components/cart/cart-item/cart-item.component
     ShopRoutingModule,
     HttpClientModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ShopModule {

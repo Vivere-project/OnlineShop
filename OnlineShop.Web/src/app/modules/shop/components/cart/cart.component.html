@@ -1,16 +1,28 @@
-<p>Your Order:</p>
-<div class="cart-item-list">
-  <ul>
-    <ng-container *ngFor="let itemCount of itemCounts">
-      <li>
-        <div *ngIf="itemCount.count != 0">
-          <app-cart-item [item]="itemCount.item" [count]="itemCount.count"></app-cart-item>
-        </div>
-      </li>
-    </ng-container>
-  </ul>
+<div class="cart-page">
+  <div class="cart-item-list">
+    <h2 i18n>Your Order</h2>
+    <ul>
+      <ng-container *ngFor="let itemCount of itemCounts">
+        <li>
+          <div *ngIf="itemCount.count != 0">
+            <app-cart-item [item]="itemCount.item" [count]="itemCount.count"></app-cart-item>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+  <div class="cart-form" [formGroup]="customerForm">
+    <label for="fullName" i18n>Name*: </label>
+    <input id="fullName" type="text" formControlName="fullName" required>
 
-  <button class="generic-button" (click)="buyItems()" i18n>
-    Buy
-  </button>
+    <label for="phone" i18n>Description: </label>
+    <input id="phone" type="text" formControlName="phone">
+
+    <label for="email" i18n>Description: </label>
+    <input id="email" type="text" formControlName="email">
+    <button class="generic-button buy-button" (click)="buyItems()" i18n>
+      Buy
+    </button>
+  </div>
 </div>
+

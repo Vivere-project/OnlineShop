@@ -1,7 +1,45 @@
 ul {
  list-style-type: none;
+ padding: 0;
+}
+
+h2 {
+ //color: white;
+ //text-shadow: gray 0 0 1px;
+}
+
+.cart-page {
+ margin: 40px;
+ display: flex;
 }
 
 .cart-item-list {
  width: 50%;
+}
+
+.cart-form {
+ width: 50%;
+ display: inline-block;
+ padding: 30px;
+ background: white;
+ border-radius: 2%;;
+}
+
+.buy-button {
+  width: 80%;
+ margin-top: 20px;
+  margin-left: 0;
+}
+
+@media only screen and (max-width: 600px) {
+ .cart-page {
+  flex-direction: column;
+ }
+ .cart-form{
+  width: 100%;
+ }
+
+ .cart-item-list {
+   width: 100%;
+ }
 }
