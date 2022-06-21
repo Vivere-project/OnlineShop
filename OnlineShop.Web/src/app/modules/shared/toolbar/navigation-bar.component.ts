@@ -36,7 +36,7 @@ export class NavigationBarComponent implements OnInit {
 
   changeLanguage(e:any){
     this.localStorageService.addToStorage('locale', e.target.value);
-    window.open('/', '_self');
+    location.reload();
   }
 
   toggleDarkTheme(): void {

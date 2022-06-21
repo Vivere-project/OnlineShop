@@ -11,17 +11,17 @@
       </ng-container>
     </ul>
   </div>
-  <div class="cart-form" [formGroup]="customerForm">
-    <label for="fullName" i18n>Name*: </label>
+  <div class="cart-form" [formGroup]="contactForm">
+    <label for="fullName" i18n>Full name: </label>
     <input id="fullName" type="text" formControlName="fullName" required>
 
-    <label for="phone" i18n>Description: </label>
-    <input id="phone" type="text" formControlName="phone">
+    <label for="phone" i18n>Phone number: </label>
+    <input id="phone" type="text" formControlName="phoneNumber" required>
 
-    <label for="email" i18n>Description: </label>
-    <input id="email" type="text" formControlName="email">
+    <label for="email" i18n>Email: </label>
+    <input id="email" type="text" formControlName="email" required>
     <button class="generic-button buy-button" (click)="buyItems()" i18n>
-      Buy
+      Create order
     </button>
   </div>
 </div>

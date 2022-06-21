@@ -7,6 +7,7 @@ import {CartService} from "../../../../services/cart.service";
 import {OrderService} from "../../../../services/order.service";
 import {Cart, ItemCount} from "../../../../models/cart";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Contact} from "../../../../models/contact";
 
 @Component({
   selector: 'app-cart',
@@ -15,10 +16,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class CartComponent implements OnInit {
   itemCounts: ItemCount[] = [];
-
-  customerForm = new FormGroup({
+  contact: Contact = {fullName: "", email: "", phoneNumber:""}
+  contactForm = new FormGroup({
     fullName: new FormControl('fullName', Validators.required),
-    phone: new FormControl('phone'),
+    phoneNumber: new FormControl('phoneNumber'),
     email: new FormControl('email'),
   });
 
@@ -30,11 +31,20 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemCounts = Object.values(this.cartService.getCart()).filter(i => i.count !== 0);
+    this.patchContact(this.contact);
   }
 
   buyItems() {
     this.orderService.makeOrder(this.itemCounts.map(i => i.item)).subscribe();
     this.cartService.removeItems();
     // this.items = this.cartService.getItems();
+  }
+
+  patchContact(contact: Contact) {
+    this.contactForm.patchValue({
+      fullName: this.contact.fullName,
+      phoneNumber: this.contact.phoneNumber,
+      email: this.contact.email
+    });
   }
 }
