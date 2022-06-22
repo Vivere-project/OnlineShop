@@ -1,8 +1,8 @@
 <div class="form-container">
-    <div>
+    <div class="form-text-inputs">
         <app-item-form (onSubmit)="submit($event)" [item]="item"></app-item-form>
     </div>
-    <div class="edit-image-container col-s-12">
+    <div class="edit-image-container">
         <app-image-viewer [file]="fileToUpload" [isLoading]="isImageLoading"></app-image-viewer>
         <label for="file" class="edit-image-button" i18n>Edit image</label>
         <input type="file"

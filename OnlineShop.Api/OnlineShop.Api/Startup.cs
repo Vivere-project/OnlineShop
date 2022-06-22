@@ -35,7 +35,7 @@ namespace OnlineShop.Api
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "OnlineShop.Api", Version = "v1"});
             });
 
-            services.ConfigureDbContext(Configuration.GetConnectionString("OnlineShopDatabase"));
+            services.ConfigureDbContext(Configuration.GetConnectionString("AzureDatabase"));
             services.ConfigureAzureClients(Configuration.GetConnectionString("Azure"));
             
             // TODO: Add strongly typed AppSettings

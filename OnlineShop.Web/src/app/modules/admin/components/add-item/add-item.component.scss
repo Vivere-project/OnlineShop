@@ -1,16 +1,6 @@
 @import '../../../../../styles/variables';
 @import '../../../../../styles';
 
-.form-container {
-  box-shadow: 0 0 10px var(--text-color);
-  width: 60%;
-  margin-top: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  padding: 48px;
-}
-
 @media screen and (max-width: 600px) {
   .form-container {
     display: block;
@@ -18,30 +8,6 @@
     box-shadow: 0 0 0;
     width: 100%;
   }
-}
-
-div.topnav {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: $base-color-dark-brown;
-  width: 100%;
-  height: 46px;
-  text-align: center;
-}
-
-div.container {
-  box-shadow: 0 0 10px;
-  width: 60%;
-  margin-top: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  padding: 48px;
-}
-
-form {
-  padding-top: 1rem;
 }
 
 label {
@@ -61,7 +27,6 @@ input[type=text], select, textarea {
   resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
 }
 
-
 input[type=submit] {
   display: block;
   background-color: $base-color-green;
@@ -77,17 +42,13 @@ input[type=submit] {
   }
 }
 
-div.input-form {
+.edit-image-container {
   width: 50%;
-  display: inline-block;
-}
-
-div.edit-image-container {
-  margin: 10px;
 }
 
 @media screen and (max-width: 600px) {
   .edit-image-container {
+    width: 100%;
   }
 }
 
@@ -123,6 +84,16 @@ input[type=file] {
   opacity: 0;
 }
 
-@media screen and (max-width: 600px) {
-  li.item-li {float: none;}
+.form-text-inputs {
+  width: 50%;
 }
+
+@media screen and (max-width: 600px) {
+
+  li.item-li {float: none;}
+
+  .form-text-inputs {
+    width: 100%;
+  }
+}
+

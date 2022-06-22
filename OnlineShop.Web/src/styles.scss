@@ -71,6 +71,15 @@ ul.items-list {
   width: 11%;
 }
 
+.form-container {
+  background-color: $base-color-light;
+  width: 60%;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  padding: 48px;
+}
 
 .item-li {
   display: inline-flex;
@@ -85,13 +94,10 @@ ul.items-list {
 .item-card {
   width: 152px;
   height: 242px;
-  //box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  border: 1px solid $base-color-light;
   text-align: center;
   margin: 10px;
   background-color: $base-color-light;
   border-radius: 2%;
-  //color: $base-color-light;
 }
 
 label {

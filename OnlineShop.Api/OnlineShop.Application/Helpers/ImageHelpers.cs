@@ -14,7 +14,7 @@ namespace OnlineShop.Application
 
         public static bool HasImageExtension(FileDetails image)
         {
-            return AvailablePhotoExtensions.Contains(image.Extension);
+            return AvailablePhotoExtensions.Contains(image.Extension.ToLower());
         }
     }
 }
