@@ -22,7 +22,7 @@
 			"i18n": {
 				"sourceLocale": "en-US",
 				"locales": {
-					"ro": "src/internationalization/messages.ro.json",
+					"ro": "src/internationalization/messages.ro.json"
 				}
 			},
 			"architect": {
@@ -72,17 +72,6 @@
 							"extractLicenses": false,
 							"sourceMap": true,
 							"namedChunks": true
-						},
-						"ro": {
-							"buildOptimizer": false,
-							"optimization": false,
-							"vendorChunk": true,
-							"extractLicenses": false,
-							"sourceMap": true,
-							"namedChunks": true,
-							"localize": [
-								"ro"
-							]
 						}
 					},
 					"defaultConfiguration": "production"
@@ -91,13 +80,11 @@
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
 						"production": {
-							"browserTarget": "online-shop:build:production",
+							"browserTarget": "online-shop:build:production"
 						},
 						"development": {
-							"browserTarget": "online-shop:build:development",
-						},
-						"ro": {
-							"browserTarget": "online-shop:build:ro",
+							"proxyConfig": "src/proxy.config.json",
+							"browserTarget": "online-shop:build:development"
 						}
 					},
 					"defaultConfiguration": "development"

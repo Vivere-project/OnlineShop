@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Item} from "../models/item";
-import {Observable, of} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 import {RequestItem} from "../models/request-item";
 import {LocalStorageService} from "./local-storage.service";
 import {environment} from "../../environments/environment";
@@ -17,6 +17,15 @@ export class ItemService {
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService) {
+  }
+
+  hashCode(str: string, salt: string): number {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      hash = (hash << 5) - hash + str.charCodeAt(i) + salt.charCodeAt(i);
+      hash = hash & hash;
+    }
+    return hash;
   }
 
   async refreshCache(): Promise<Item[]> { // TODO: Make the cache temporary
@@ -44,7 +53,6 @@ export class ItemService {
     return this.http.get(`${this.baseUrl}/item/${id}/image`,  { responseType: 'blob' });
   }
 
-  /// Adds every property of item separately!
   createItem(item: RequestItem, image: File | null): Observable<Item> {
     let formItem = new FormData();
     formItem.append("itemRequest", JSON.stringify(item));
@@ -55,7 +63,8 @@ export class ItemService {
   }
 
   updateItem(id: number, item: RequestItem): Observable<Item> {
-    return this.http.put<Item>(`${this.baseUrl}/item/${id}`, item,  { headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
+    // this.http.post<Item>(`${this.baseUrl}/item/${id}`, item).subscribe();
+    return this.http.put<Item>(`${this.baseUrl}/item/${id}`, item);
   }
 
   deleteItem(id: number): Observable<Item> {

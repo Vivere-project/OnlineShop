@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using OnlineShop.Domain;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -13,6 +9,7 @@ namespace OnlineShop.TelegramBot
     {
         private static readonly TelegramBotClient Bot = new ("1697116522:AAHalShSQhFWHlv72nlgbyJeETBH76oyzJc");
         private static readonly ChatId ValeriuChatId = new (308674164); 
+        
         
         public static void SendItemsMessage(IEnumerable<Item> items)
         {

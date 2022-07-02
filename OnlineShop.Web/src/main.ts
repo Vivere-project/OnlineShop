@@ -12,7 +12,7 @@ if (environment.production) {
 
 // Check localstorage for language and load the file
 console.log('Localstorage locale', localStorage.getItem('locale'));
-const locale = localStorage.getItem('locale') || 'en';
+const locale = localStorage.getItem('locale') || 'ro';
 
 fetch('/assets/translations/' + locale + '.json')
   .then((response) => {

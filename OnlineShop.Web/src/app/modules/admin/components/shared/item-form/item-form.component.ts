@@ -19,11 +19,11 @@ export class ItemFormComponent implements OnInit, OnChanges{
 
   itemForm = new FormGroup({
     name: new FormControl('name', Validators.required),
-    description: new FormControl('description'),
+    description: new FormControl('description',),
     volume: new FormControl('volume'),
-    price: new FormControl('price', Validators.min(1)),
-    minimalBuyQuantity: new FormControl('minimalBuyQuantity', Validators.min(1)),
-    quantityInStock: new FormControl('quantityInStock', Validators.min(0)),
+    price: new FormControl('price'),
+    minimalBuyQuantity: new FormControl('minimalBuyQuantity'),
+    quantityInStock: new FormControl('quantityInStock'),
     colorName: new FormControl('colorName')
   });
 

@@ -19,5 +19,14 @@ div.item-container {
 
 .colors {
   list-style-type: none;
-  margin: 3px;
+  padding: 0;
+  horiz-align: center;
+}
+
+.option {
+  display: inline-block;
+}
+
+p {
+  margin: 0;
 }

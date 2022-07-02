@@ -4,9 +4,14 @@
     <div class="item-container">
         <h5 class="item-name">{{item.name}}</h5>
         <ul class="colors">
-<!--            <div *ngFor=""></div>-->
-            <li>
+            <li *ngIf="item.color != null" class="option">
                 <app-color-circle [color]="item.color?.colorHex ?? ''"></app-color-circle>
+            </li>
+            <li *ngIf="item.volume != null" class="option">
+                <p>{{item.volume.endsWith('L') ? item.volume : item.volume + 'L'}}</p>
+            </li>
+            <li *ngIf="item.volume == null && item.color == null" class="option">
+                <p> </p>
             </li>
         </ul>
         <ng-content></ng-content>

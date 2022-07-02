@@ -1,8 +1,9 @@
-<div class="container">
-  <app-item-form [item]="item" (onSubmit)="submit($event)"></app-item-form>
-
+<div class="form-container">
+  <div class="form-text-inputs">
+    <app-item-form [item]="item" (onSubmit)="submit($event)"></app-item-form>
+  </div>
   <div class="edit-image-container">
-    <app-image-viewer [file]="file" [isLoading]="isLoading" [customHeight]=300 [customWidth]=300>
+    <app-image-viewer [file]="file" [isLoading]="isLoading">
     </app-image-viewer>
 
     <div class="form-group">

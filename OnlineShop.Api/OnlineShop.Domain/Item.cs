@@ -11,21 +11,20 @@ namespace OnlineShop.Domain
         [StringLength(50)]
         public string Name { get; set; }
         
-        public string Description { get; set; }
+        public string? Description { get; set; }
         
         public string? ImageFileName { get; set; }
         
         [Column(TypeName = "decimal(9,2)")]
-        public decimal Price { get; set; }
+        public decimal? Price { get; set; }
         
         [Range(1, 1_000_000)]
-        public uint MinimalBuyQuantity { get; set; }
+        public uint? MinimalBuyQuantity { get; set; }
         
         [Range(1, 1_000_000)]
-        public uint QuantityInStock { get; set; }
+        public uint? QuantityInStock { get; set; }
         
-        [Range(1, 1_000_000)]
-        public uint? Volume { get; set; }
+        public string? Volume { get; set; }
 
         public int? ColorId { get; set; }
         

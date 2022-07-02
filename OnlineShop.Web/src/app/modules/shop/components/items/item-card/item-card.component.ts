@@ -21,9 +21,11 @@ export class ItemCardComponent implements OnInit {
   constructor(
     private itemService: ItemService,
     private cartService: CartService,
-    private localStorageService: LocalStorageService) { }
+    private localStorageService: LocalStorageService) {
+  }
 
   ngOnInit(): void {
+    this.countToAdd = this.item.minimalBuyQuantity ?? 1;
     this.countAdded = this.localStorageService.pipe(map(localStorage => localStorage.getCartItemCount(this.item.id)))
   }
 
@@ -36,7 +38,7 @@ export class ItemCardComponent implements OnInit {
   }
 
   counterDropOne() {
-    if (this.countToAdd > 1)
+    if (this.countToAdd >  1)
       this.countToAdd --;
   }
 

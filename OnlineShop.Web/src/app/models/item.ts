@@ -2,10 +2,10 @@ export class Item {
   id : number = 0;
   name: string = "";
   description: string = "";
-  volume: number | null = null;
-  price: number = 0;
-  minimalBuyQuantity: number = 0;
-  quantityInStock: number = 0;
+  volume: string | null = null;
+  price: number | null = 0;
+  minimalBuyQuantity: number | null = 0;
+  quantityInStock: number | null = 0;
   color: ItemColor | null = null;
   hasPhoto: boolean = false;
 

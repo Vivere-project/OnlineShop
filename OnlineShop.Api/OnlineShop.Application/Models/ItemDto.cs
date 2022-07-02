@@ -6,12 +6,12 @@ namespace OnlineShop.Application.Models
     {
         public ItemDto(
             string name, 
-            string description,
+            string? description,
             FileDetails? imageFileDetails,
-            decimal price,
-            uint minimalBuyQuantity,
-            uint quantityInStock, 
-            uint? volume,
+            decimal? price,
+            uint? minimalBuyQuantity,
+            uint? quantityInStock, 
+            string? volume,
             int? colorId)
         {
             Name = name;
@@ -26,17 +26,17 @@ namespace OnlineShop.Application.Models
 
         public string Name { get; }
         
-        public string Description { get; }
+        public string? Description { get; }
         
         public FileDetails? ImageFileDetails { get; }
         
-        public decimal Price { get; }
+        public decimal? Price { get; }
         
-        public uint MinimalBuyQuantity { get; }
+        public uint? MinimalBuyQuantity { get; }
         
-        public uint QuantityInStock { get; }
+        public uint? QuantityInStock { get; }
 
-        public uint? Volume { get; }
+        public string? Volume { get; }
 
         public int? ColorId { get; set; }
         

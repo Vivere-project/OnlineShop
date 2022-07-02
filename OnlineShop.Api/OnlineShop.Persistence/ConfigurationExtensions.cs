@@ -10,7 +10,8 @@ namespace OnlineShop.Persistence
         {
             services
                 .AddDbContext<IOnlineShopContext, OnlineShopContext>(options => options
-                    .UseSqlServer(connectionString, x => x.MigrationsAssembly("OnlineShop.Persistence"))
+                    .UseSqlServer(connectionString, x => x.MigrationsAssembly("OnlineShop.Persistence")
+                        .EnableRetryOnFailure())
                 );
         }
     }
