@@ -1,3 +1,5 @@
+@import '/src/styles/variables';
+
 ul {
  list-style-type: none;
  padding: 0;
@@ -6,6 +8,13 @@ ul {
 h2 {
  //color: white;
  //text-shadow: gray 0 0 1px;
+}
+
+.empty-cart-message {
+ background-color: $base-color-light;
+ border-radius: 10px;
+ margin-right: 40px;
+ padding: 30px;
 }
 
 .cart-page {

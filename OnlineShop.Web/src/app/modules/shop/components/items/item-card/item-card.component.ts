@@ -38,7 +38,7 @@ export class ItemCardComponent implements OnInit {
   }
 
   counterDropOne() {
-    if (this.countToAdd >  1)
+    if (this.countToAdd > 1)
       this.countToAdd --;
   }
 

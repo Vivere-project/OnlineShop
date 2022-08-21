@@ -1,6 +1,9 @@
 <div class="cart-page">
   <div class="cart-item-list">
     <h2 i18n>Your Order</h2>
+    <div *ngIf="isCartEmpty" class="empty-cart-message">
+      <h4 i18n>Your order is empty. You can still contact us and order verbally</h4>
+    </div>
     <ul>
       <ng-container *ngFor="let itemCount of itemCounts">
         <li>
@@ -25,4 +28,3 @@
     </button>
   </div>
 </div>
-
