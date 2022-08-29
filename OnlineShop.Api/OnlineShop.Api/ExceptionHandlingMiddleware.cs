@@ -17,7 +17,7 @@ namespace OnlineShop.Api
         public ExceptionHandlingMiddleware(RequestDelegate next, bool isDevelopment)
         {
             this.next = next;
-            this.isDevelopment = isDevelopment;
+            this.isDevelopment = true;
         }
 
         public async Task InvokeAsync(HttpContext context)
