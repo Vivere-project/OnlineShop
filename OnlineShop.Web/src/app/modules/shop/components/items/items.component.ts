@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Item} from "../../../../models/item";
 import {ItemService} from "../../../../services/item.service";
 
@@ -9,12 +9,14 @@ import {ItemService} from "../../../../services/item.service";
 })
 export class ItemsComponent implements OnInit {
 
-  items: Item[] = []
+  $items: Promise<Item[]> | null = null;
+  items: Item[] = [];
 
   constructor(
     private itemService: ItemService) { }
 
   async ngOnInit() {
-    this.items = await this.itemService.refreshCache();
+    this.$items = this.itemService.refreshCache().then(s => this.items = s);
   }
+
 }

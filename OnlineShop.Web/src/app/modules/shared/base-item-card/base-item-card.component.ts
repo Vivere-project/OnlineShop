@@ -9,8 +9,8 @@ import {ItemService} from "../../../services/item.service";
 })
 export class BaseItemCardComponent implements OnInit {
 
-  @Input() item!: Item;
-  imageToShow: any;
+  @Input() item?: Item;
+  imageToShow: any = undefined;
   isImageLoading: boolean = true;
 
   constructor(private itemService: ItemService) { }
@@ -20,7 +20,7 @@ export class BaseItemCardComponent implements OnInit {
   }
 
   showImage() {
-    if (this.item.hasPhoto) {
+    if (this.item && this.item.hasPhoto) {
       this.itemService.getItemPhoto(this.item.id)
         .subscribe(image =>
           {

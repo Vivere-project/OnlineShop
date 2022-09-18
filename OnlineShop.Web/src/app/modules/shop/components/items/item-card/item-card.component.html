@@ -1,5 +1,6 @@
 
   <app-base-item-card [item]="item">
+      <ng-container *ngIf="item != undefined">
       <span class="bottom-container">
           <button class="generic-small-button button-left" (click)="counterDropOne()">
               <i class="fa fa-arrow-down"></i>
@@ -17,6 +18,7 @@
               </i>
           </button>
       </span>
+      </ng-container>
       <div class="cart-counter" *ngIf="(countAdded | async)!=0">
           <div class="item-cart-counter-text">
               {{countAdded | async}}

@@ -13,7 +13,7 @@ import {map} from "rxjs/operators";
 })
 export class ItemCardComponent implements OnInit {
 
-  @Input() item!: Item;
+  @Input() item?: Item;
   countToAdd = 1;
   isCountValid = true;
   countAdded = new Observable<number>();
@@ -22,15 +22,18 @@ export class ItemCardComponent implements OnInit {
     private itemService: ItemService,
     private cartService: CartService,
     private localStorageService: LocalStorageService) {
+
   }
 
   ngOnInit(): void {
-    this.countToAdd = this.item.minimalBuyQuantity ?? 1;
-    this.countAdded = this.localStorageService.pipe(map(localStorage => localStorage.getCartItemCount(this.item.id)))
+    if (this.item != undefined) {
+      this.countToAdd = this.item.minimalBuyQuantity ?? 1;
+      this.countAdded = this.localStorageService.pipe(map(localStorage => localStorage.getCartItemCount(this.item!.id)))
+    }
   }
 
   addToCart() {
-    this.cartService.addItems(this.item, this.countToAdd);
+    this.cartService.addItems(this.item!, this.countToAdd);
   }
 
   counterAddOne() {

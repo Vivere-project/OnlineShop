@@ -27,9 +27,13 @@ export class ItemService {
     }
     return hash;
   }
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 
   async refreshCache(): Promise<Item[]> { // TODO: Make the cache temporary
     this.localStorageService.removeFromStorage("itemsCache");
+    await this.delay(3000)
     return this.getItems();
   }
 

@@ -1,8 +1,14 @@
 
 <!--<app-carousel></app-carousel>-->
-
 <ul class="items-list">
-  <ng-container *ngFor="let item of items">
+  <div *ngIf="items.length == 0">
+    <ng-container *ngFor="let num of [].constructor(10);">
+      <li class="item-li">
+        <app-item-card ></app-item-card>
+      </li>
+    </ng-container>
+  </div>
+  <ng-container *ngFor="let item of ($items | async)">
     <li class="item-li">
       <app-item-card [item]="item" ></app-item-card>
     </li>
