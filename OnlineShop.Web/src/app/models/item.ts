@@ -16,7 +16,7 @@ export class Item {
       description: "",
       volume: null,
       price: 0,
-      minimalBuyQuantity: 0,
+      minimalBuyQuantity: 1,
       quantityInStock: 0,
       color: null,
       hasPhoto: false
