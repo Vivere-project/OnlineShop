@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Item} from "../../../models/item";
 import {ItemService} from "../../../services/item.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-base-item-card',
@@ -13,10 +14,17 @@ export class BaseItemCardComponent implements OnInit {
   imageToShow: any;
   isImageLoading: boolean = true;
 
-  constructor(private itemService: ItemService) { }
+  constructor(
+      private itemService: ItemService,
+      private router: Router
+      ) { }
 
   ngOnInit(): void {
     this.showImage();
+  }
+
+  goToItemDetails() {
+    this.router.navigate(['/item', this.item.id]);
   }
 
   showImage() {
@@ -33,5 +41,9 @@ export class BaseItemCardComponent implements OnInit {
     } else {
       this.isImageLoading = false;
     }
+  }
+
+  displayVolume(item: Item) {
+    return item.volume?.endsWith('L') ? item.volume : item.volume + 'L'
   }
 }

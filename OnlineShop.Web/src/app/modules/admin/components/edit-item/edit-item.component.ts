@@ -18,7 +18,7 @@ export class EditItemComponent implements OnInit {
     description: "loading..",
     hasPhoto: false,
     price: 0,
-    minimalBuyQuantity: 0,
+    minimalBuyQuantity: 1,
     quantityInStock: 0,
     color: null,
   }

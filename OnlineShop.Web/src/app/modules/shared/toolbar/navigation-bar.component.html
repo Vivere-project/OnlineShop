@@ -66,9 +66,9 @@
         <li>
             <div class="right nav-item" [class.cart]="itemsInCartCount | async">
                 <div class="cart-counter" *ngIf="itemsInCartCount | async">
-                    <div class="cart-counter-text">
+<!--                    <div class="cart-counter-text">-->
                         {{itemsInCartCount | async}}
-                    </div>
+<!--                    </div>-->
                 </div>
                 <button class="generic-small-button" style="min-width: 45px; min-height: 45px;" routerLink="/cart">
                     <i class="fa fa-shopping-cart" style="width: 20px; height: 20px"></i>
